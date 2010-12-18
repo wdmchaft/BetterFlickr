@@ -199,6 +199,19 @@
 }
 
 /*!
+ * @method		descriptionForWebView:
+ * @abstract	Overrides the description field to be able to display in a UIWebView
+ * @result		An HTML String with the photo description
+ */
+- (NSString *)descriptionForWebView
+{
+	return [NSString stringWithFormat:@"<html><body style=\"%@\">%@</body></html>",
+			@"background-color:black;font-family:Verdana;font-size:12;color:white;padding:0;margin:5px 0;",
+			self.descr];
+	
+}
+
+/*!
  * @method		urlForPhotoSize:
  * @abstract	Returns the flickr URL based on the size of the photo desired
  * @param		inSizeModifier	The size of the photo desired. (see ObjectiveFlickr.h)

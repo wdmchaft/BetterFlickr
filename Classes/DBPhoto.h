@@ -139,6 +139,13 @@
 - (NSData *)contentForPhotoSize:(NSString *)iSize;
 
 /*!
+ * @method		descriptionForWebView:
+ * @abstract	Overrides the description field to be able to display in a UIWebView
+ * @result		An HTML String with the photo description
+ */
+- (NSString *)descriptionForWebView;
+
+/*!
  * @method		photoIsStoredForSize:
  * @abstract	Returns YES if the photo has been locally downloaded for a given size (ex small)
  * @param		iSize	The size of the photo desired

@@ -58,12 +58,20 @@ REQUIRE(_photo != nil)
 		[_preview setBackgroundImage:aImage forState:UIControlStateNormal];
 		
 		// Update layout from image
-		[self layoutPreviewFromImage:aImage];
+		[self layoutViewsFromImage:aImage];
 
 		// image is retained inside preview background button release it
 		[aImage release];
 
 	}
+	
+	[_photoTitle setText:_photo.title];
+	[_photoDescription loadHTMLString:[_photo descriptionForWebView] baseURL:nil];
+	
+	
+	
+//	[scrollView addSubview: contentView];
+//	[self.view addSubview:scrollView];
 
 }
 
@@ -103,19 +111,26 @@ REQUIRE(_photo != nil)
  *	@abstract	Updates the preview height if needed depending on the image size
  *	@param		aImage		The image that the preview will to for layout
  */
-- (void)layoutPreviewFromImage:(UIImage*)aImage
+- (void)layoutViewsFromImage:(UIImage*)aImage
 {
 	CGSize aSize = aImage.size;
 	
 	// Some image can be very small (though what's the point in uploading to flickr :)
 	CGFloat aMaxWidth = aSize.width > 320.0 ? 320.0 : aMaxWidth;
 	
-	if (aSize.width > aSize.height)
-		[_preview setFrame:CGRectMake(_preview.frame.origin.x, _preview.frame.origin.y, 
-									  aMaxWidth, aMaxWidth*aSize.height/aSize.width)];
-	else
-		[_preview setFrame:CGRectMake(_preview.frame.origin.x, _preview.frame.origin.y, 
-									  aMaxWidth, aMaxWidth*aSize.height/aSize.width)];
+	
+	// Update preview view
+	[_preview setFrame:CGRectMake(_preview.frame.origin.x, _preview.frame.origin.y, 
+								  aMaxWidth, aMaxWidth*aSize.height/aSize.width)];
+	
+	// Update all other views contained in 	_detailsView
+	[_detailsView setFrame:CGRectMake(_detailsView.frame.origin.x, _preview.frame.origin.y+_preview.frame.size.height+5,
+									  _detailsView.frame.size.width, _detailsView.frame.size.height)];
+	
+	// Update ScrollView and leave a little space from the bottom
+	UIScrollView* aScrollView = (UIScrollView*)self.view;
+	CGFloat aHeight = _detailsView.frame.size.height + _preview.frame.size.height;
+	aScrollView.contentSize = CGSizeMake(320, aHeight);
 }
 
 #pragma mark Callbacks
@@ -137,10 +152,25 @@ REQUIRE (iData != nil)
 	[_activityPreview stopAnimating];
 	
 	// Update layout from image
-	[self layoutPreviewFromImage:aImage];
+	[self layoutViewsFromImage:aImage];
 	
 	// Release image object since it's retained in the preview button
 	[aImage release];
 }
+
+#pragma mark UIWebViewDelegate
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+	// Retreve the desired size for the webview
+	// Note that for this to work, the original size must be smaller than the desired one
+	CGSize s = [webView sizeThatFits:CGSizeZero];
+	
+	// Update height with desired one
+	[webView setFrame:CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, s.height)];
+	
+	
+}
+
 
 @end

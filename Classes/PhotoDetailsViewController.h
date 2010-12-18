@@ -11,13 +11,16 @@
 @class DBPhoto;
 @class DBUser;
 
-@interface PhotoDetailsViewController : UIViewController 
+@interface PhotoDetailsViewController : UIViewController <UIWebViewDelegate,UIScrollViewDelegate>
 {
 	DBPhoto* _photo;
 	DBUser*	_user;
 	
 	IBOutlet UIButton* _preview;
 	IBOutlet UIActivityIndicatorView* _activityPreview;
+	IBOutlet UIView* _detailsView;
+	IBOutlet UIWebView* _photoDescription;
+	IBOutlet UILabel* _photoTitle;
 }
 
 @property (nonatomic, retain) DBPhoto*	photo;
@@ -34,6 +37,6 @@
  *	@abstract	Updates the preview height if needed depending on the image size
  *	@param		aImage		The image that the preview will to for layout
  */
-- (void)layoutPreviewFromImage:(UIImage*)aImage;
+- (void)layoutViewsFromImage:(UIImage*)aImage;
 
 @end
