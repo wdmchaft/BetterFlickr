@@ -120,6 +120,24 @@
  */
 - (NSURL *)urlForPhotoSize:(NSString *)inSizeModifier;
 
+
+/*!
+ * @method		pathForPhotoSize:
+ * @abstract	Returns the flocally stored path based on the size of the photo desired
+ * @param		inSizeModifier	The size of the photo desired. (see ObjectiveFlickr.h)
+ * @result		The path for the desired photo if it's stored, nil otheriwise
+ */
+- (NSString *)pathForPhotoSize:(NSString *)inSizeModifier;
+
+/*!
+ * @method		pathForPhotoSize:
+ * @abstract	Returns the content of the locally stored image based on the size of the photo desired
+ *				If the desired photo is not stored locally, this function will return nil
+ * @param		inSizeModifier	The size of the photo desired. (see ObjectiveFlickr.h)
+ * @result		The content for the desired photo if it's stored, nil otherwise
+ */
+- (NSData *)contentForPhotoSize:(NSString *)iSize;
+
 /*!
  * @method		photoIsStoredForSize:
  * @abstract	Returns YES if the photo has been locally downloaded for a given size (ex small)

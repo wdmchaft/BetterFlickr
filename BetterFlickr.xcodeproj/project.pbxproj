@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		040BA6F8129088E3007300E4 /* FirstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040BA6F2129088E3007300E4 /* FirstView.xib */; };
-		040BA6F9129088E3007300E4 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040BA6F3129088E3007300E4 /* LoginViewController.xib */; };
-		040BA6FA129088E3007300E4 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040BA6F4129088E3007300E4 /* MainWindow.xib */; };
-		040BA6FB129088E3007300E4 /* PhotostreamView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040BA6F5129088E3007300E4 /* PhotostreamView.xib */; };
-		040BA6FC129088E3007300E4 /* PhotoViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040BA6F6129088E3007300E4 /* PhotoViewCell.xib */; };
 		040BA72712908993007300E4 /* betterflickr.sql in Resources */ = {isa = PBXBuildFile; fileRef = 040BA72512908993007300E4 /* betterflickr.sql */; };
 		040BA72F129089F7007300E4 /* DBAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 040BA72A129089F7007300E4 /* DBAccessor.m */; };
 		040BA730129089F7007300E4 /* DBUserAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 040BA72C129089F7007300E4 /* DBUserAccessor.m */; };
@@ -31,6 +26,11 @@
 		040BA76112908B02007300E4 /* libObjectiveFlickr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 040BA6D912908881007300E4 /* libObjectiveFlickr.a */; };
 		0457E0A812AAB9BE00D046F9 /* PhotoDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0457E0A612AAB9BE00D046F9 /* PhotoDetailsViewController.m */; };
 		0457E0A912AAB9BE00D046F9 /* PhotoDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0457E0A712AAB9BE00D046F9 /* PhotoDetailsViewController.xib */; };
+		04DDEFF112BCFA9B004D039D /* FirstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DDEFEC12BCFA9B004D039D /* FirstView.xib */; };
+		04DDEFF212BCFA9B004D039D /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DDEFED12BCFA9B004D039D /* LoginViewController.xib */; };
+		04DDEFF312BCFA9B004D039D /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DDEFEE12BCFA9B004D039D /* MainWindow.xib */; };
+		04DDEFF412BCFA9B004D039D /* PhotostreamView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DDEFEF12BCFA9B004D039D /* PhotostreamView.xib */; };
+		04DDEFF512BCFA9B004D039D /* PhotoViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DDEFF012BCFA9B004D039D /* PhotoViewCell.xib */; };
 		04E3192312A130F600F6F837 /* comments.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E3192012A130F600F6F837 /* comments.png */; };
 		04E3192412A130F600F6F837 /* favourites.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E3192112A130F600F6F837 /* favourites.png */; };
 		04E3192512A130F600F6F837 /* views.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E3192212A130F600F6F837 /* views.png */; };
@@ -68,11 +68,6 @@
 
 /* Begin PBXFileReference section */
 		040BA6CD12908881007300E4 /* ObjectiveFlickr.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ObjectiveFlickr.xcodeproj; path = ../objectiveflickr/ObjectiveFlickr.xcodeproj; sourceTree = SOURCE_ROOT; };
-		040BA6F2129088E3007300E4 /* FirstView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FirstView.xib; sourceTree = "<group>"; };
-		040BA6F3129088E3007300E4 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
-		040BA6F4129088E3007300E4 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
-		040BA6F5129088E3007300E4 /* PhotostreamView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotostreamView.xib; sourceTree = "<group>"; };
-		040BA6F6129088E3007300E4 /* PhotoViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoViewCell.xib; sourceTree = "<group>"; };
 		040BA703129088FD007300E4 /* Locales.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Locales.h; sourceTree = "<group>"; };
 		040BA72512908993007300E4 /* betterflickr.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = betterflickr.sql; path = ../BetterFlickrBak/SQLite/betterflickr.sql; sourceTree = "<group>"; };
 		040BA729129089F7007300E4 /* DBAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBAccessor.h; sourceTree = "<group>"; };
@@ -106,6 +101,11 @@
 		0457E0A512AAB9BE00D046F9 /* PhotoDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoDetailsViewController.h; sourceTree = "<group>"; };
 		0457E0A612AAB9BE00D046F9 /* PhotoDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoDetailsViewController.m; sourceTree = "<group>"; };
 		0457E0A712AAB9BE00D046F9 /* PhotoDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PhotoDetailsViewController.xib; path = Classes/PhotoDetailsViewController.xib; sourceTree = "<group>"; };
+		04DDEFEC12BCFA9B004D039D /* FirstView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FirstView.xib; path = Resources/FirstView.xib; sourceTree = "<group>"; };
+		04DDEFED12BCFA9B004D039D /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LoginViewController.xib; path = Resources/LoginViewController.xib; sourceTree = "<group>"; };
+		04DDEFEE12BCFA9B004D039D /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = Resources/MainWindow.xib; sourceTree = "<group>"; };
+		04DDEFEF12BCFA9B004D039D /* PhotostreamView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PhotostreamView.xib; path = Resources/PhotostreamView.xib; sourceTree = "<group>"; };
+		04DDEFF012BCFA9B004D039D /* PhotoViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PhotoViewCell.xib; path = Resources/PhotoViewCell.xib; sourceTree = "<group>"; };
 		04E3192012A130F600F6F837 /* comments.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = comments.png; path = images/16x16/comments.png; sourceTree = "<group>"; };
 		04E3192112A130F600F6F837 /* favourites.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = favourites.png; path = images/16x16/favourites.png; sourceTree = "<group>"; };
 		04E3192212A130F600F6F837 /* views.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = views.png; path = images/16x16/views.png; sourceTree = "<group>"; };
@@ -232,12 +232,12 @@
 		04E3192812A1310C00F6F837 /* NIB Files */ = {
 			isa = PBXGroup;
 			children = (
+				04DDEFEC12BCFA9B004D039D /* FirstView.xib */,
+				04DDEFED12BCFA9B004D039D /* LoginViewController.xib */,
+				04DDEFEE12BCFA9B004D039D /* MainWindow.xib */,
+				04DDEFEF12BCFA9B004D039D /* PhotostreamView.xib */,
+				04DDEFF012BCFA9B004D039D /* PhotoViewCell.xib */,
 				0457E0A712AAB9BE00D046F9 /* PhotoDetailsViewController.xib */,
-				040BA6F2129088E3007300E4 /* FirstView.xib */,
-				040BA6F3129088E3007300E4 /* LoginViewController.xib */,
-				040BA6F4129088E3007300E4 /* MainWindow.xib */,
-				040BA6F5129088E3007300E4 /* PhotostreamView.xib */,
-				040BA6F6129088E3007300E4 /* PhotoViewCell.xib */,
 			);
 			name = "NIB Files";
 			sourceTree = "<group>";
@@ -378,16 +378,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				040BA6F8129088E3007300E4 /* FirstView.xib in Resources */,
-				040BA6F9129088E3007300E4 /* LoginViewController.xib in Resources */,
-				040BA6FA129088E3007300E4 /* MainWindow.xib in Resources */,
-				040BA6FB129088E3007300E4 /* PhotostreamView.xib in Resources */,
-				040BA6FC129088E3007300E4 /* PhotoViewCell.xib in Resources */,
 				040BA72712908993007300E4 /* betterflickr.sql in Resources */,
 				04E3192312A130F600F6F837 /* comments.png in Resources */,
 				04E3192412A130F600F6F837 /* favourites.png in Resources */,
 				04E3192512A130F600F6F837 /* views.png in Resources */,
 				0457E0A912AAB9BE00D046F9 /* PhotoDetailsViewController.xib in Resources */,
+				04DDEFF112BCFA9B004D039D /* FirstView.xib in Resources */,
+				04DDEFF212BCFA9B004D039D /* LoginViewController.xib in Resources */,
+				04DDEFF312BCFA9B004D039D /* MainWindow.xib in Resources */,
+				04DDEFF412BCFA9B004D039D /* PhotostreamView.xib in Resources */,
+				04DDEFF512BCFA9B004D039D /* PhotoViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,7 +16,7 @@
 
 @implementation PhotoDetailsViewController
 
-@synthesize photo = _photo;
+@synthesize photo = _photo;	
 @synthesize user = _user;
 
 /*
@@ -39,11 +39,32 @@ REQUIRE(_photo != nil)
 	
 	self.title = _photo.title;
 	
+	// If photo has not been stored download it
 	if ([_photo photoIsStoredForSize:OFFlickrMediumSize] == NO)
 	{
 		// Creates and start the downloader
 		[[[Downloader alloc] initWithSender:self param:_photo] startDownloadPhotoOfSize:OFFlickrMediumSize];
+		
+		// Start Activity
+		[_activityPreview startAnimating];
 	}
+	// otherwise update the preview image
+	else
+	{
+		// Build image from content for specified size
+		UIImage* aImage = [[UIImage alloc] initWithData:[_photo contentForPhotoSize:OFFlickrMediumSize]];
+		
+		// Update preview
+		[_preview setBackgroundImage:aImage forState:UIControlStateNormal];
+		
+		// Update layout from image
+		[self layoutPreviewFromImage:aImage];
+
+		// image is retained inside preview background button release it
+		[aImage release];
+
+	}
+
 }
 
 /*
@@ -76,5 +97,50 @@ REQUIRE(_photo != nil)
     [super dealloc];
 }
 
+#pragma mark Layout Functions
+
+/*! @method		layoutPreviewFromImage:
+ *	@abstract	Updates the preview height if needed depending on the image size
+ *	@param		aImage		The image that the preview will to for layout
+ */
+- (void)layoutPreviewFromImage:(UIImage*)aImage
+{
+	CGSize aSize = aImage.size;
+	
+	// Some image can be very small (though what's the point in uploading to flickr :)
+	CGFloat aMaxWidth = aSize.width > 320.0 ? 320.0 : aMaxWidth;
+	
+	if (aSize.width > aSize.height)
+		[_preview setFrame:CGRectMake(_preview.frame.origin.x, _preview.frame.origin.y, 
+									  aMaxWidth, aMaxWidth*aSize.height/aSize.width)];
+	else
+		[_preview setFrame:CGRectMake(_preview.frame.origin.x, _preview.frame.origin.y, 
+									  aMaxWidth, aMaxWidth*aSize.height/aSize.width)];
+}
+
+#pragma mark Callbacks
+
+/*! @method		downloadDidComplete:data
+ *	@abstract	Callback for when a photo had been completely downloaded
+ *	@param		iObjID		The BOM object from which the download had been started
+ *	@param		iData		The Data holding the image
+ */
+- (void)photoDownloadDidComplete:(id)iObjID data:(NSData*)iData
+{
+REQUIRE (iData != nil)
+	
+	UIImage* aImage = [[UIImage alloc] initWithData:iData];
+	
+	[_preview setBackgroundImage:aImage forState:UIControlStateNormal];
+	
+	// Stop Activity
+	[_activityPreview stopAnimating];
+	
+	// Update layout from image
+	[self layoutPreviewFromImage:aImage];
+	
+	// Release image object since it's retained in the preview button
+	[aImage release];
+}
 
 @end

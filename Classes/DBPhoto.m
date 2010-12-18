@@ -95,6 +95,12 @@
 
 #pragma mark Useful Functions
 
+/*!
+ * @method		photoIsStoredForSize:
+ * @abstract	Returns YES if the photo has been locally downloaded for a given size (ex small)
+ * @param		iSize	The size of the photo desired
+ * @result		YES if stored locally
+ */
 - (BOOL)photoIsStoredForSize:(NSString*)iSize
 {
 	// Size can be null for example for OFFlickrMediumSize
@@ -112,16 +118,92 @@
 		NSFileManager *aFileManager = [NSFileManager defaultManager];
 		
 		// Get Thumbnail
-		NSString* aThumbnailPath = [NSString stringWithFormat:@"%@%@.jpg", self.path, aExt];
+		NSString* aPhotoPath = [NSString stringWithFormat:@"%@%@.jpg", self.path, aExt];
 		
 		// Load the image with content of that file
-		aIsStored = [aFileManager fileExistsAtPath:aThumbnailPath];	
+		aIsStored = [aFileManager fileExistsAtPath:aPhotoPath];	
 	}
 	
 	return aIsStored;
 	
 }
 
+/*!
+ * @method		pathForPhotoSize:
+ * @abstract	Returns the flocally stored path based on the size of the photo desired
+ * @param		inSizeModifier	The size of the photo desired. (see ObjectiveFlickr.h)
+ * @result		The path for the desired photo if it's stored, nil otherwise
+ */
+- (NSString *)pathForPhotoSize:(NSString *)iSize
+{
+	// Size can be null for example for OFFlickrMediumSize
+	// So leave it empty
+	NSString* aExt = @"";
+	if ([iSize length])
+		aExt = [NSString stringWithFormat:@"_%@", iSize];
+	
+	
+	NSString* aPhotoPath = nil; 
+	
+	if (_path != nil)
+	{
+		// The filemanager will be used to retreive the content of the file if the path is already set
+		NSFileManager *aFileManager = [NSFileManager defaultManager];
+		
+		// Construct Path
+		aPhotoPath = [NSString stringWithFormat:@"%@%@.jpg", self.path, aExt];
+		
+		if ([aFileManager fileExistsAtPath:aPhotoPath] == NO)
+			aPhotoPath = nil;
+			
+	}
+	
+	return aPhotoPath;
+	
+}
+
+/*!
+ * @method		pathForPhotoSize:
+ * @abstract	Returns the content of the locally stored image based on the size of the photo desired
+ *				If the desired photo is not stored locally, this function will return nil
+ * @param		inSizeModifier	The size of the photo desired. (see ObjectiveFlickr.h)
+ * @result		The content for the desired photo if it's stored, nil otherwise
+ */
+- (NSData *)contentForPhotoSize:(NSString *)iSize
+{
+	// Size can be null for example for OFFlickrMediumSize
+	// So leave it empty
+	NSString* aExt = @"";
+	if ([iSize length])
+		aExt = [NSString stringWithFormat:@"_%@", iSize];
+	
+	
+	NSData* aContent = nil; 
+	
+	if (_path != nil)
+	{
+		// The filemanager will be used to retreive the content of the file if the path is already set
+		NSFileManager *aFileManager = [NSFileManager defaultManager];
+		
+		// Construct Path
+		NSString* aPhotoPath = [NSString stringWithFormat:@"%@%@.jpg", self.path, aExt];
+		
+		// Get Content at Specified Path
+		if ([aFileManager fileExistsAtPath:aPhotoPath] != NO)
+			aContent = [aFileManager contentsAtPath:aPhotoPath];
+		
+	}
+	
+	return aContent;
+	
+}
+
+/*!
+ * @method		urlForPhotoSize:
+ * @abstract	Returns the flickr URL based on the size of the photo desired
+ * @param		inSizeModifier	The size of the photo desired. (see ObjectiveFlickr.h)
+ * @result		A NSURL object with the flickr URL
+ */
 - (NSURL *)urlForPhotoSize:(NSString *)iSizeModifier
 {
 	// http://farm{farm-id}.static.flickr.com/{server-id}/{id}_{secret}_[mstb].jpg

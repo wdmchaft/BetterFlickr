@@ -271,6 +271,8 @@ REQUIRE(self.flickrDelegate);
 				 [aTopController class] == [PhotoDetailsViewController class])
 		{
 			PhotoDetailsViewController* aPhotoStreamController = (PhotoDetailsViewController*)aTopController;
+			
+			[aPhotoStreamController photoDownloadDidComplete:iSender data:iData];
 		}
 				 
 	}
@@ -320,6 +322,12 @@ REQUIRE(self.flickrDelegate);
 	return NO;
 }
 
+/*!
+ * @method		resetDatabase
+ * @abstract	Restores original database with default settings by copying
+ *				the sqlite3 database located in Resources into the application directory
+ * @result		True if the reset was correctly processed.
+ */
 - (Boolean) resetDatabase
 {
 	NSString *aDocumentsDir = [self rootApplicationPath];
@@ -387,7 +395,7 @@ REQUIRE(self.flickrDelegate);
 - (NSString*) extenstionFromImage:(UIImage*)iImage
 {
 REQUIRE(iImage != nil)
-	NSString* aRes = @"";
+	NSString* aRes = @"_";
 	
 	CGFloat aWidth = iImage.size.width;
 	CGFloat aHeight = iImage.size.height;
@@ -441,7 +449,7 @@ REQUIRE([iPhoto owner])
 	
 	// Now check image size to see what extenstion will be written
 	UIImage* aImage = [[UIImage alloc]initWithData:iData];
-	NSString* aPath = [aUserPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_%@.jpg", 
+	NSString* aPath = [aUserPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@%@.jpg", 
 																 iPhoto.pid, 
 																 [self extenstionFromImage:aImage]]];
 	
