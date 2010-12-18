@@ -1,0 +1,2 @@
+/Volumes/Storage/Projects/BetterFlickr/Classes/BetterFlickrAppDelegate.m: In function '-[BetterFlickrAppDelegate downloadDidComplete:sender:object:data:]':
+/Volumes/Storage/Projects/BetterFlickr/Classes/BetterFlickrAppDelegate.m:273: warning: unused variable 'aPhotoStreamController'

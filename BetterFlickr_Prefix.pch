@@ -1,0 +1,91 @@
+//
+// Prefix header for all source files of the 'BetterFlickr' target in the 'BetterFlickr' project
+//
+
+#ifdef __OBJC__
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#endif
+
+#define kDatabaseName		@"betterflickr.db"
+
+#define kFlickrAPIKey		@"ca62bf6dcd9f99193d0f415ca077357e"
+#define kFlickrAPISecret	@"787b9a860271e258"
+
+/*! @method		REQUIRE
+ *	@abstract	The REQUIRE macro takes a condition in parameter and throws an exception
+ *				if that condition is not met.
+ *	@param		condition		ex. aObject != nil
+ */
+#define REQUIRE(condition) \
+{ \
+	if (!(condition)) \
+	{ \
+		[NSException raise:@"Assertion Failed"\
+		format:@"\nIn File:\t %s:%u\nCondition: (%s) not met", __FILE__, __LINE__, #condition]; \
+	} \
+}; 
+
+/*! @method		NEEDS
+ *	@abstract	The NEEDS macro is a bit less violent that the REQUIRE macro is the sense
+ *				that if the condition is not met, it returns from the current function.
+ *	@param		condition		ex. aObject != nil
+ */
+#define NEEDS(condition,...) \
+{ \
+	if (!(condition)) \
+	{ \
+		NSLog(@"%@", [NSString stringWithFormat:@"\nSkipping:\t %s:%u\nCondition: (%s) not met", \
+		__FILE__, __LINE__, #condition]); \
+		return; \
+	} \
+}; 
+
+#define LOG_ERROR(error) \
+{ \
+	if ([error class] == [NSError class]) \
+	{ \
+		NSLog(@"**********************************************************************"); \
+		NSLog(@"%@", [NSString stringWithFormat:@"\nIn File:\t %s:%u\nError Received: \n\t%s\n", \
+		__FILE__, __LINE__, [error description]]); \
+		NSLog(@"**********************************************************************"); \
+	} \
+}; 
+
+#define SAFE_RELEASE(obj) \
+{ \
+	if ((obj) != nil) \
+	{ \
+		[(obj) release]; \
+		obj = nil; \
+	} \
+};
+
+
+
+/**************************************************************** 
+ *	Status
+ *	SQlite Interface:
+ *		✔	SQLiteDB Create If Needed					✔ Done
+ *		✔	Reset SQLiteDB Functions					✔ Done
+ *		✔	Retreive main user at startup				✔ Done
+ *		-	History of Action with mapping sucess
+ *			(store in flickrRequest.sessionInfo
+ *		-	Handle Failures correctly
+ *		-	Differantiate behaviour new/updated photos
+ *	SQLite DB:
+ *		✔	DBUser table (dictionary ?)					✔ Done
+ *		✔	Photo table									✔ Done
+ *		-	Update Functions of DBPhotoAccessor
+ *	FlickrAPIs
+ *		✔	First login through flickr API				✔ Done
+ *	Overall UI
+ *		- Login View if not yet signed in
+ *		- Create the PhotoViewController
+ *		- Only downloads photos in the current view
+ *		- Manage groups
+ * Current Work
+ *		- Improving Login User Experience
+ *		- Go from splash screen and improve
+ ****************************************************************/
+
