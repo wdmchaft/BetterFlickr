@@ -14,10 +14,11 @@
 
 #import "DBUserAccessor.h"
 #import "DBPhotoAccessor.h"
+#import "DBCommentAccessor.h"
 
 #import "DBUser.h"
 #import "DBPhoto.h"
-
+#import "DBComment.h"
 
 @implementation ObjectiveFlickrDelegate
 
@@ -162,7 +163,7 @@ REQUIRE(iDicPhoto != nil)
 	// Create the photo from based info (but sometimes it's lacking some basic info)
 	DBPhoto* aPhoto = [[DBPhoto alloc] initWithDictionary:iDicPhoto];//[[DBPhotoAccessor instance] photoFromId:@""];
 	
-	// Retreive the DBPhoto with same is
+	// Retreive the DBPhoto with same ID
 	DBPhoto* aDBPhoto = [[DBPhotoAccessor instance] photoFromId:aPhoto.pid];
 	
 	// If photo is present udpate it with information retrieved
@@ -175,6 +176,68 @@ REQUIRE(iDicPhoto != nil)
 	// Release objects
 	[aPhoto release];
 }
+
+- (void)processPhotoFavorites:(NSDictionary*)iDicPhoto
+{
+REQUIRE(iDicPhoto != nil)
+	
+	DBPhoto* aPhoto = [[DBPhoto alloc] initWithDictionary:iDicPhoto];
+	
+	// Retreive the DBPhoto with same ID
+	DBPhoto* aDBPhoto = [[DBPhotoAccessor instance] photoFromId:aPhoto.pid];
+	
+	// If photo is present udpate it with information retrieved
+	if (aDBPhoto != nil)
+	{
+		aDBPhoto.favourites = [NSString integerFromDictionary:iDicPhoto key:kPhotoFavoritesTotal];
+		[[DBPhotoAccessor instance] savePhoto:aDBPhoto];
+	}
+	
+	// Release Objects
+	[aPhoto release];
+	
+}
+
+/*! @method		processPhotoComments:
+ *	@abstract	Processes data retreived after a Flickr API Call. The response will look like:
+ *				<comments photo_id="109722179">
+ *					<comment id="6065-109722179-72057594077818641"
+ *					 author="35468159852@N01" authorname="Rev Dan Catt" datecreate="1141841470"
+ *					 permalink="...">
+ *						Umm, I'm not sure, can I get back to you on that one?
+ *					</comment>
+ *				</comments>
+ *	@param		iDicComments	A Dictionary build by ObjectiveFlickr built from
+ *	
+ */
+- (void)processPhotoComments:(NSDictionary*)iDicComments
+{
+REQUIRE(iDicComments != nil)
+	
+	NSArray* aComments	= [iDicComments objectForKey:kCommentDicName];
+	NSString* aRefPhoto = [iDicComments objectForKey:kCommentRefPhotoDictName];
+	
+REQUIRE ([aRefPhoto length])
+	
+	if ([aComments count] > 0)
+	{
+		for (int i = 0; i < [aComments count]; i++)
+		{
+			// Build object from dictionary response
+			DBComment* aComment = [[DBComment alloc] initWithDictionary:[aComments objectAtIndex:i]
+															 refPhotoId:aRefPhoto];
+			
+			// Save object into local database
+			[[DBCommentAccessor instance] insertComment:aComment];
+			
+			//Release object
+			[aComment release];
+			
+		}
+		//TODO: Call the PhotoDetails back for layoutComments
+	}
+}
+
 #pragma mark -
 #pragma mark OFFlickrAPIRequestDelegate methods
 
@@ -187,6 +250,10 @@ REQUIRE(self.flickrContext)
 		[self processUserPhotos:[iDicResponse objectForKey:@"photos"]];
 	if (iFlickrRequest.sessionInfo == kFlickrPhotosInfo)
 		[self processPhotoInfo:[iDicResponse objectForKey:@"photo"]];
+	if (iFlickrRequest.sessionInfo == kFlickrPhotosFavorites)
+		[self processPhotoFavorites:[iDicResponse objectForKey:@"photo"]];
+	if (iFlickrRequest.sessionInfo == kFlickrPhotosCommentsList)
+		[self processPhotoComments:[iDicResponse objectForKey:@"comments"]];
 	
 	// We're done with the OFFlickrAPIRequest => release it
 	[iFlickrRequest release];

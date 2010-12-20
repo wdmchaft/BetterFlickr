@@ -9,6 +9,7 @@
 #import "DBAccessor.h"
 #import "DBUser.h"
 #import "DBPhoto.h"
+#import "DBComment.h"
 
 #import <sqlite3.h>
 
@@ -98,6 +99,8 @@
 					aDBObject = [[DBUser alloc] initWithSQLiteStatement:statement];
 				else if (iClass == [DBPhoto class])
 					aDBObject = [[DBPhoto alloc] initWithSQLiteStatement:statement];
+				else if (iClass == [DBComment class])
+					aDBObject = [[DBComment alloc] initWithSQLiteStatement:statement];
 				
 				// Store object into returned array
 				[aArray addObject:aDBObject];
@@ -107,7 +110,14 @@
 		}
 		else
 		{
-			NSLog(@"An error occured while executing the following query: %@", iQuery);
+			NSString* aErrorString			= [NSString stringWithFormat:@"Failed to execute: \n %s", iQuery];
+			NSDictionary* aErrorDictionary	= [NSDictionary dictionaryWithObjectsAndKeys:aErrorString, NSLocalizedDescriptionKey, nil];
+			
+			NSError* aError = [NSError errorWithDomain:@"BetterFlickrDomain"
+												  code:0 
+											  userInfo:aErrorDictionary];
+			
+			LOG_ERROR(aError);
 		}
 		
 		// "Finalize" the statement - releases the resources associated with the statement.

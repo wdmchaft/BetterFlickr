@@ -46,8 +46,8 @@
 	if ([error class] == [NSError class]) \
 	{ \
 		NSLog(@"**********************************************************************"); \
-		NSLog(@"%@", [NSString stringWithFormat:@"\nIn File:\t %s:%u\nError Received: \n\t%s\n", \
-		__FILE__, __LINE__, [error description]]); \
+		NSLog(@"%@", [NSString stringWithFormat:@"\nIn File:\t %s:%u\nError Received: \n%@\n", \
+		__FILE__, __LINE__, [error localizedDescription]]); \
 		NSLog(@"**********************************************************************"); \
 	} \
 }; 

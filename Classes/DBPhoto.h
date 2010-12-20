@@ -11,6 +11,7 @@
 
 #import "DBObject.h"
 
+// Column Location in SQLite Database
 #define kPhotoFarmColumn			0
 #define kPhotoServerColumn			1
 #define kPhotoPostedColumn			2
@@ -61,6 +62,7 @@
 #define kPhotoFlickrName			@"photo"
 #define kPhotoPage					@"page"
 #define kPhotoPages					@"pages"
+#define kPhotoFavoritesTotal		@"total"
 #define kPhotoFlickrPhotoSource		@"http://static.flickr.com/"
 
 @interface DBPhoto : DBObject 

@@ -10,9 +10,12 @@
 
 #import "ObjectiveFlickr.h"
 
-#define kFlickrAuthToken	@"flickr.auth.getToken"
-#define kFlickrPeoplePhotos	@"flickr.people.getPhotos"
-#define kFlickrPhotosInfo	@"flickr.photos.getInfo"
+#define kFlickrAuthToken			@"flickr.auth.getToken"
+#define kFlickrPeoplePhotos			@"flickr.people.getPhotos"
+#define kFlickrPhotosInfo			@"flickr.photos.getInfo"
+#define kFlickrPhotosFavorites		@"flickr.photos.getFavorites"
+
+#define kFlickrPhotosCommentsList	@"flickr.photos.comments.getList"
 
 @class BetterFlickrAppDelegate;
 
@@ -26,6 +29,21 @@
 - (void)processAuthentication:(NSDictionary*)iDicAuth;
 - (void)processUserPhotos:(NSDictionary*)iDicPhotos;
 - (void)processPhotoInfo:(NSDictionary*)iDicPhotos;
+- (void)processPhotoFavorites:(NSDictionary*)iDicPhotos;
+
+/*! @method		processPhotoComments:
+ *	@abstract	Processes data retreived after a Flickr API Call. The response will look like:
+ *				<comments photo_id="109722179">
+ *					<comment id="6065-109722179-72057594077818641"
+ *					 author="35468159852@N01" authorname="Rev Dan Catt" datecreate="1141841470"
+ *					 permalink="http://www.flickr.com/photos/straup/109722179/#comment72057594077818641">
+ *						Umm, I'm not sure, can I get back to you on that one?
+ *					</comment>
+ *				</comments>
+ *	@param		iDicComments	A Dictionary build by ObjectiveFlickr built from
+ *	
+ */
+- (void)processPhotoComments:(NSDictionary*)iDicComments;
 
 /*! @method		createRequestFromAPI:arguments
  *	@abstract	Does two things:

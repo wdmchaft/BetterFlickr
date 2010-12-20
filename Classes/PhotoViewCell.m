@@ -73,8 +73,14 @@ REQUIRE([iPhoto pid] != nil)
 		[[aDelegate flickrDelegate] createRequestFromAPI:kFlickrPhotosInfo
 											   arguments:[NSDictionary dictionaryWithObjectsAndKeys:
 														  [iPhoto pid], @"photo_id",  nil]];
-		
-		
+
+	}
+	
+	if ([iPhoto favourites] < 0)
+	{
+		[[aDelegate flickrDelegate] createRequestFromAPI:kFlickrPhotosFavorites
+											   arguments:[NSDictionary dictionaryWithObjectsAndKeys:
+														  [iPhoto pid], @"photo_id",  nil]];
 	}
 	
 	// No path set yet: photo has not been downloaded yet

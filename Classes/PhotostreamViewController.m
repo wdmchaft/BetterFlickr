@@ -205,7 +205,10 @@ REQUIRE(iIndexPath.row < [_photos count])
 																									   bundle:nil];
 	
 	// Associate View Controller with corresponding Data
-	aDetailsViewController.photo = (DBPhoto*)[_photos objectAtIndex:iIndexPath.row];
+	DBPhoto* aPhoto = (DBPhoto*)[_photos objectAtIndex:iIndexPath.row];
+	
+	// Retreive most up to date version of the photo from DB
+	aDetailsViewController.photo = [[DBPhotoAccessor instance] photoFromId:aPhoto.pid];
 	
 	[[self navigationController] pushViewController:aDetailsViewController animated:YES];
 	

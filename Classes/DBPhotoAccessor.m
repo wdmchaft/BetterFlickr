@@ -172,7 +172,7 @@ REQUIRE(iPhoto != nil)
 	
 	// Execute
 	BOOL result =  [self executeQuery:aQuery];
-	
+		
 	// Free
 	sqlite3_free(aQuery);
 	

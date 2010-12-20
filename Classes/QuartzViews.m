@@ -25,6 +25,21 @@
 	return self;
 }
 
+
+// Override - (id)initWithCoder:(NSCoder *)decoder as well since it the function
+// called instead of -(id)initWithFrame:(CGRect)frame when loading from a nib file
+- (id)initWithCoder:(NSCoder *)decoder
+{
+	self = [super initWithCoder:decoder];
+	if(self != nil)
+	{
+		self.backgroundColor = [UIColor blackColor];
+		self.opaque = YES;
+		self.clearsContextBeforeDrawing = YES;
+	}
+	return self;
+}
+
 -(void)drawInContext:(CGContextRef)context
 {
 	// Default is to do nothing!
@@ -61,6 +76,13 @@
 
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
+        // Initialization code
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    if ((self = [super initWithCoder:decoder])) {
         // Initialization code
     }
     return self;
