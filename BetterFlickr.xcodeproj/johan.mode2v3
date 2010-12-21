@@ -202,80 +202,6 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
-				<string>040BA7AB12908C99007300E4</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>DBComment.m</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>040BA7B512908CBC007300E4</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>DBComment.m</string>
-						<key>_historyCapacity</key>
-						<integer>20</integer>
-						<key>bookmark</key>
-						<string>04DDF69612BEC2AD004D039D</string>
-						<key>history</key>
-						<array>
-							<string>04DDF27912BE42DA004D039D</string>
-							<string>04DDF2F512BE5D93004D039D</string>
-							<string>04DDF2F612BE5D93004D039D</string>
-							<string>04DDF38F12BE63A9004D039D</string>
-							<string>04DDF3C312BE6539004D039D</string>
-							<string>04DDF3C412BE6539004D039D</string>
-							<string>04DDF3CD12BE657E004D039D</string>
-							<string>04DDF3D112BE7CF0004D039D</string>
-							<string>04DDF3D212BE7CF0004D039D</string>
-							<string>04DDF3D312BE7CF0004D039D</string>
-							<string>04DDF3E812BE7F1D004D039D</string>
-							<string>04DDF47A12BE8EFC004D039D</string>
-							<string>04DDF47B12BE8EFC004D039D</string>
-							<string>04DDF4AA12BE918C004D039D</string>
-							<string>04DDF4AB12BE918C004D039D</string>
-							<string>04DDF4AC12BE918C004D039D</string>
-							<string>04DDF5C312BEB463004D039D</string>
-							<string>04DDF5C412BEB463004D039D</string>
-							<string>04DDF4A912BE918C004D039D</string>
-						</array>
-					</dict>
-					<key>Split1</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>04DDF47F12BE8EFC004D039D</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>DBPhoto.m</string>
-						<key>_historyCapacity</key>
-						<integer>20</integer>
-						<key>bookmark</key>
-						<string>04DDF69712BEC2AD004D039D</string>
-						<key>history</key>
-						<array>
-							<string>04DDF48012BE8EFC004D039D</string>
-							<string>04DDF48112BE8EFC004D039D</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>2</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {899, 1340}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>64 36 899 1381 0 0 2560 1418 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
 				<string>040BA7AE12908CA5007300E4</string>
 				<key>PBXProjectModuleLabel</key>
 				<string>PhotoDetailsViewController.m</string>
@@ -290,7 +216,7 @@
 						<key>_historyCapacity</key>
 						<integer>20</integer>
 						<key>bookmark</key>
-						<string>04DDF69812BEC2AD004D039D</string>
+						<string>04DDF8EC12C15447004D039D</string>
 						<key>history</key>
 						<array>
 							<string>04DDEFBF12BC1BD0004D039D</string>
@@ -298,7 +224,6 @@
 							<string>04DDF00E12BD062E004D039D</string>
 							<string>04DDF00F12BD062E004D039D</string>
 							<string>04DDF2C112BE5039004D039D</string>
-							<string>04DDF2CC12BE51A4004D039D</string>
 							<string>04DDF2ED12BE5D93004D039D</string>
 							<string>04DDF3F412BE8078004D039D</string>
 							<string>04DDF3F512BE8078004D039D</string>
@@ -311,8 +236,9 @@
 							<string>04DDF44C12BE87A8004D039D</string>
 							<string>04DDF45E12BE8A10004D039D</string>
 							<string>04DDF45F12BE8A10004D039D</string>
-							<string>04DDF5DB12BEB75B004D039D</string>
-							<string>04DDF66C12BEC104004D039D</string>
+							<string>04DDF78912C134D4004D039D</string>
+							<string>04DDF89812C15195004D039D</string>
+							<string>04DDF8AF12C152D1004D039D</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -329,6 +255,82 @@
 				<false/>
 				<key>RubberWindowFrame</key>
 				<string>966 36 899 1381 0 0 2560 1418 </string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
+				<string>040BA7AB12908C99007300E4</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>PhotoDetailsViewController.m</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>040BA7B512908CBC007300E4</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>PhotoViewCell.h</string>
+						<key>_historyCapacity</key>
+						<integer>20</integer>
+						<key>bookmark</key>
+						<string>04DDF8ED12C15447004D039D</string>
+						<key>history</key>
+						<array>
+							<string>04DDF2F612BE5D93004D039D</string>
+							<string>04DDF38F12BE63A9004D039D</string>
+							<string>04DDF3C312BE6539004D039D</string>
+							<string>04DDF3C412BE6539004D039D</string>
+							<string>04DDF3CD12BE657E004D039D</string>
+							<string>04DDF3D112BE7CF0004D039D</string>
+							<string>04DDF3E812BE7F1D004D039D</string>
+							<string>04DDF47A12BE8EFC004D039D</string>
+							<string>04DDF47B12BE8EFC004D039D</string>
+							<string>04DDF4AA12BE918C004D039D</string>
+							<string>04DDF4AB12BE918C004D039D</string>
+							<string>04DDF4AC12BE918C004D039D</string>
+							<string>04DDF5C312BEB463004D039D</string>
+							<string>04DDF5C412BEB463004D039D</string>
+							<string>04DDF6A712BFF84E004D039D</string>
+							<string>04DDF6C012BFFA83004D039D</string>
+							<string>04DDF6C112BFFA83004D039D</string>
+							<string>04DDF7DD12C14593004D039D</string>
+							<string>04DDF75712C13011004D039D</string>
+						</array>
+					</dict>
+					<key>Split1</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>04DDF6C412BFFA83004D039D</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>PhotoDetailsViewController.m</string>
+						<key>_historyCapacity</key>
+						<integer>20</integer>
+						<key>bookmark</key>
+						<string>04DDF8EE12C15447004D039D</string>
+						<key>history</key>
+						<array>
+							<string>04DDF6C512BFFA83004D039D</string>
+							<string>04DDF84A12C14B7F004D039D</string>
+							<string>04DDF84B12C14B7F004D039D</string>
+							<string>04DDF84C12C14B7F004D039D</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>2</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {899, 1340}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>64 36 899 1381 0 0 2560 1418 </string>
 			</dict>
 		</dict>
 	</array>
@@ -414,14 +416,14 @@
 									<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 									<array>
 										<array>
-											<integer>42</integer>
+											<integer>50</integer>
+											<integer>43</integer>
 											<integer>41</integer>
-											<integer>39</integer>
 											<integer>0</integer>
 										</array>
 									</array>
 									<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-									<string>{{0, 515}, {333, 382}}</string>
+									<string>{{0, 657}, {333, 382}}</string>
 								</dict>
 								<key>PBXTopSmartGroupGIDs</key>
 								<array/>
@@ -631,11 +633,11 @@
 		<string>04DDEF3712BBEC69004D039D</string>
 		<string>04DDEF3212BBEC5B004D039D</string>
 		<string>1C530D52069F1CE1000CFCEE</string>
-		<string>1C530D54069F1CE1000CFCEE</string>
-		<string>1C530D5B069F1CE1000CFCEE</string>
 		<string>/Volumes/Storage/Projects/BetterFlickr/BetterFlickr.xcodeproj</string>
-		<string>040BA7AE12908CA5007300E4</string>
 		<string>040BA7AB12908C99007300E4</string>
+		<string>1C530D5B069F1CE1000CFCEE</string>
+		<string>1C530D54069F1CE1000CFCEE</string>
+		<string>040BA7AE12908CA5007300E4</string>
 	</array>
 	<key>WindowString</key>
 	<string>1868 949 350 468 0 0 2560 1418 </string>
@@ -791,14 +793,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>PhotoDetailsViewController.h</string>
+								<string>PhotoDetailsViewController.m</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -815,6 +815,8 @@
 							<string>563pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>

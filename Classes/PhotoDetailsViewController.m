@@ -133,7 +133,7 @@ REQUIRE(_photo != nil)
 	
 	CGFloat aHeight = _detailsView.frame.size.height + _preview.frame.size.height;
 	
-	aScrollView.contentSize = CGSizeMake(320, aHeight);
+	aScrollView.contentSize = CGSizeMake(320, aHeight+5);
 }
 
 /*! @method		layoutPreviewFromImage:
@@ -147,20 +147,25 @@ REQUIRE(_photo != nil)
 	// Some image can be very small (though what's the point in uploading to flickr :)
 	CGFloat aMaxWidth = aSize.width > 320.0 ? 320.0 : aMaxWidth;
 	
-	
+	CGFloat aCurrY = _preview.frame.origin.y;
 	// Update preview view
-	[_preview setFrame:CGRectMake(_preview.frame.origin.x, _preview.frame.origin.y, 
+	[_preview setFrame:CGRectMake(_preview.frame.origin.x, aCurrY , 
 								  aMaxWidth, aMaxWidth*aSize.height/aSize.width)];
 	
 	// Update all other views contained in 	_detailsView
-	[_detailsView setFrame:CGRectMake(_detailsView.frame.origin.x, _preview.frame.origin.y+_preview.frame.size.height+5,
+	aCurrY += _preview.frame.size.height + 5;
+	[_detailsView setFrame:CGRectMake(_detailsView.frame.origin.x, aCurrY,
 									  _detailsView.frame.size.width, _detailsView.frame.size.height)];
+	
+	aCurrY += _detailsView.frame.size.height;
+	[_commentsView setFrame:CGRectMake(_commentsView.frame.origin.x, aCurrY,
+									  _commentsView.frame.size.width, _commentsView.frame.size.height)];
 	
 	
 	// Update ScrollView and leave a little space from the bottom
+	aCurrY += _commentsView.frame.size.height;
 	UIScrollView* aScrollView = (UIScrollView*)self.view;
-	CGFloat aHeight = _detailsView.frame.size.height + _preview.frame.size.height;
-	aScrollView.contentSize = CGSizeMake(320, aHeight);
+	aScrollView.contentSize = CGSizeMake(320, aCurrY);
 	
 }
 
@@ -364,9 +369,9 @@ REQUIRE (iData != nil)
 				//}
 			}
 			
-			// Finally update the comment view after adding all subviews height
-			[_commentsView setFrame:CGRectMake(_commentsView.frame.origin.x, _commentsView.frame.origin.y, 
-											   _commentsView.frame.size.width, aCurrY)];
+//			// Finally update the comment view after adding all subviews height
+//			[_commentsView setFrame:CGRectMake(_commentsView.frame.origin.x, _commentsView.frame.origin.y, 
+//											   _commentsView.frame.size.width, aCurrY)];
 			
 			[_detailsView setFrame:CGRectMake(_detailsView.frame.origin.x, _detailsView.frame.origin.y, 
 											  _detailsView.frame.size.width, _detailsView.frame.size.height+aCurrY)];
@@ -387,9 +392,9 @@ REQUIRE (iData != nil)
 	{
 		[webView setFrame:CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, s.height)];
 		
-		// Update Comment View
-		[_commentsView setFrame:CGRectMake(_commentsView.frame.origin.x, webView.frame.origin.y+s.height, 
-										   _commentsView.frame.size.width, 100)];
+//		// Update Comment View
+//		[_commentsView setFrame:CGRectMake(_commentsView.frame.origin.x, webView.frame.origin.y+s.height, 
+//										   _commentsView.frame.size.width, 100)];
 		
 		// Update main scroll view
 		//[self layoutScrollView];

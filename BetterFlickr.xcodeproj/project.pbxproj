@@ -36,6 +36,8 @@
 		04DDF2CB12BE5169004D039D /* DBComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DDF2CA12BE5169004D039D /* DBComment.m */; };
 		04DDF2E412BE5AB7004D039D /* DBCommentAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DDF2E312BE5AB7004D039D /* DBCommentAccessor.m */; };
 		04DDF5E712BEB832004D039D /* DetailCommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DDF5E612BEB832004D039D /* DetailCommentView.xib */; };
+		04DDF6AA12BFF876004D039D /* CommentViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DDF6A912BFF876004D039D /* CommentViewCell.xib */; };
+		04DDF6AF12BFF901004D039D /* CommentViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DDF6AE12BFF901004D039D /* CommentViewCell.m */; };
 		04E3192312A130F600F6F837 /* comments.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E3192012A130F600F6F837 /* comments.png */; };
 		04E3192412A130F600F6F837 /* favourites.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E3192112A130F600F6F837 /* favourites.png */; };
 		04E3192512A130F600F6F837 /* views.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E3192212A130F600F6F837 /* views.png */; };
@@ -118,6 +120,9 @@
 		04DDF2E212BE5AB7004D039D /* DBCommentAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBCommentAccessor.h; sourceTree = "<group>"; };
 		04DDF2E312BE5AB7004D039D /* DBCommentAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBCommentAccessor.m; sourceTree = "<group>"; };
 		04DDF5E612BEB832004D039D /* DetailCommentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DetailCommentView.xib; path = Resources/DetailCommentView.xib; sourceTree = "<group>"; };
+		04DDF6A912BFF876004D039D /* CommentViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CommentViewCell.xib; path = Resources/CommentViewCell.xib; sourceTree = "<group>"; };
+		04DDF6AD12BFF901004D039D /* CommentViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentViewCell.h; sourceTree = "<group>"; };
+		04DDF6AE12BFF901004D039D /* CommentViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentViewCell.m; sourceTree = "<group>"; };
 		04E3192012A130F600F6F837 /* comments.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = comments.png; path = images/16x16/comments.png; sourceTree = "<group>"; };
 		04E3192112A130F600F6F837 /* favourites.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = favourites.png; path = images/16x16/favourites.png; sourceTree = "<group>"; };
 		04E3192212A130F600F6F837 /* views.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = views.png; path = images/16x16/views.png; sourceTree = "<group>"; };
@@ -165,6 +170,8 @@
 			children = (
 				040BA74A12908A25007300E4 /* PhotoViewCell.h */,
 				040BA74B12908A25007300E4 /* PhotoViewCell.m */,
+				04DDF6AD12BFF901004D039D /* CommentViewCell.h */,
+				04DDF6AE12BFF901004D039D /* CommentViewCell.m */,
 			);
 			name = cells;
 			sourceTree = "<group>";
@@ -264,6 +271,7 @@
 				04DDEFED12BCFA9B004D039D /* LoginViewController.xib */,
 				04DDEFEE12BCFA9B004D039D /* MainWindow.xib */,
 				04DDEFEF12BCFA9B004D039D /* PhotostreamView.xib */,
+				04DDF6A912BFF876004D039D /* CommentViewCell.xib */,
 				04DDEFF012BCFA9B004D039D /* PhotoViewCell.xib */,
 			);
 			name = "NIB Files";
@@ -418,6 +426,7 @@
 				04DDF1A412BE33B3004D039D /* public.png in Resources */,
 				04DDF2C812BE5151004D039D /* PhotoDetailsViewController.xib in Resources */,
 				04DDF5E712BEB832004D039D /* DetailCommentView.xib in Resources */,
+				04DDF6AA12BFF876004D039D /* CommentViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,6 +456,7 @@
 				0457E0A812AAB9BE00D046F9 /* PhotoDetailsViewController.m in Sources */,
 				04DDF2CB12BE5169004D039D /* DBComment.m in Sources */,
 				04DDF2E412BE5AB7004D039D /* DBCommentAccessor.m in Sources */,
+				04DDF6AF12BFF901004D039D /* CommentViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
