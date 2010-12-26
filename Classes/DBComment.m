@@ -77,7 +77,8 @@ REQUIRE ([refPhotoId length])
  */
 - (NSString *)contentForWebView
 {
-	return [NSString stringWithFormat:@"<html><body style=\"%@\">%@</body></html>",
+	return [NSString stringWithFormat:@"<html><head>%s</head><body style=\"%@\">%@</body></html>",
+			@"<style type=\"text/css\">p {color:blue} a {color:white} </style>",
 			@"background-color:black;font-family:Verdana;font-size:11;color:#888;padding:0;margin:1px 5px;",
 			self.content];
 }

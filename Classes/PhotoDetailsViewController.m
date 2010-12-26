@@ -392,12 +392,13 @@ REQUIRE (iData != nil)
 	{
 		[webView setFrame:CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, s.height)];
 		
-//		// Update Comment View
-//		[_commentsView setFrame:CGRectMake(_commentsView.frame.origin.x, webView.frame.origin.y+s.height, 
-//										   _commentsView.frame.size.width, 100)];
+		// Update Comment View
+		CGFloat y = _detailsView.frame.origin.y + webView.frame.origin.y+s.height;
+		[_commentsView setFrame:CGRectMake(_commentsView.frame.origin.x, y, 
+										   _commentsView.frame.size.width, _commentsView.frame.size.height)];
 		
 		// Update main scroll view
-		//[self layoutScrollView];
+		[self layoutScrollView];
 		
 	}
 			
