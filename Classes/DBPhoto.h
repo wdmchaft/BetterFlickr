@@ -141,6 +141,15 @@
 - (NSData *)contentForPhotoSize:(NSString *)iSize;
 
 /*!
+ * @method		sizeForPhotoSize:
+ * @abstract	Returns the height of the locally stored image based on the size of the photo desired
+ *				If the desired photo is not stored locally, this function will 0
+ * @param		iSize		The size of the photo desired. (see ObjectiveFlickr.h)
+ * @result		The size for the desired photo if it's stored, CGSizeZero otherwise
+ */
+- (CGSize)sizeForPhotoSize:(NSString *)iSize;
+
+/*!
  * @method		descriptionForWebView:
  * @abstract	Overrides the description field to be able to display in a UIWebView
  * @result		An HTML String with the photo description

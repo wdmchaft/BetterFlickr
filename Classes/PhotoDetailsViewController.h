@@ -13,10 +13,11 @@
 @class DBComment;
 @class QuartzLineView;
 
-@interface PhotoDetailsViewController : UIViewController <UIWebViewDelegate,UIScrollViewDelegate>
+@interface PhotoDetailsViewController : UIViewController <UIWebViewDelegate,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
 	DBPhoto* _photo;
 	DBUser*	_user;
+	NSArray* _comments;
 	
 	IBOutlet UIButton* _preview;
 	IBOutlet UIActivityIndicatorView* _activityPreview;
@@ -28,7 +29,7 @@
 	IBOutlet UILabel* _photoComments;
 	IBOutlet UILabel* _photoFavs;
 	
-	IBOutlet UIView* _commentsView;
+	IBOutlet UITableView* _commentsView;
 	
 	IBOutlet QuartzLineView* _separatorDescription;
 	IBOutlet QuartzLineView* _separatorComments;
@@ -50,31 +51,5 @@
 
 #pragma mark Layout Functions
 
-/*! @method		layoutScrollView
- *	@abstract	Updates the main scroll view height depending on the size of its content
- */
-- (void)layoutScrollView;
-
-/*! @method		layoutPreviewFromImage:
- *	@abstract	Updates the preview height if needed depending on the image size
- *	@param		aImage		The image that the preview will to for layout
- */
-- (void)layoutViewsFromImage:(UIImage*)aImage;
-
-/*! @method		layoutStats
- *	@abstract	Updates Stats view for the current photo (comments,favs ...)
- */
-- (void)layoutStats;
-
-/*! @method		layoutComments
- *	@abstract	Updates Comments view for the current photo 
- */
-- (void)layoutComments;
-
-/*! @method		addCommentViewFromComment:
- *	@abstract	Adds a UIView based on the passed comment
- *	@param		iComment	The comment from which the view will be built on
- */
-- (void)addCommentViewFromComment:(DBComment*)iComment;
 
 @end

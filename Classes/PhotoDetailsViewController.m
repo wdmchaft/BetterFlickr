@@ -17,6 +17,8 @@
 #import "DBPhoto.h"
 #import "DBComment.h"
 
+#import "PhotoDetailCells.h"
+
 #import "DBCommentAccessor.h"
 
 #import "Downloader.h"
@@ -57,34 +59,17 @@ REQUIRE(_photo != nil)
 		// Start Activity
 		[_activityPreview startAnimating];
 	}
-	// otherwise update the preview image
-	else
-	{
-		// Build image from content for specified size
-		UIImage* aImage = [[UIImage alloc] initWithData:[_photo contentForPhotoSize:OFFlickrMediumSize]];
-		
-		// Update preview
-		[_preview setBackgroundImage:aImage forState:UIControlStateNormal];
-		
-		// Update layout from image
-		[self layoutViewsFromImage:aImage];
-
-		// image is retained inside preview background button release it
-		[aImage release];
-
-	}
 	
 	self.view.autoresizesSubviews = YES;
 	
-	[_photoTitle setText:_photo.title];
-	[_photoDescription loadHTMLString:[_photo descriptionForWebView] baseURL:nil];
 	
-	[self layoutStats];
-	[self layoutComments];
+	// Comments
+	_comments = [[[DBCommentAccessor instance] commentsForPhoto:_photo] retain];
 	
-	
-//	[scrollView addSubview: contentView];
-//	[self.view addSubview:scrollView];
+	// TableView Setup
+	_commentsView.backgroundColor	= [UIColor blackColor];
+	_commentsView.separatorColor	= [UIColor darkGrayColor];
+
 
 }
 
@@ -114,178 +99,12 @@ REQUIRE(_photo != nil)
 {
 	[_photo release];
 	[_user release];
+	[_comments release];
 	
     [super dealloc];
 }
 
-#pragma mark Layout Functions
-
-/*! @method		layoutScrollView
- *	@abstract	Updates the main scroll view height depending on the size of its content
- */
-- (void)layoutScrollView
-{
-	UIScrollView* aScrollView = (UIScrollView*)self.view;
-	
-	// Retreve the desired size for the webview
-	// Note that for this to work, the original size must be smaller than the desired one
-	//CGSize s = [_detailsView sizeThatFits:CGSizeZero];
-	
-	CGFloat aHeight = _detailsView.frame.size.height + _preview.frame.size.height;
-	
-	aScrollView.contentSize = CGSizeMake(320, aHeight+5);
-}
-
-/*! @method		layoutPreviewFromImage:
- *	@abstract	Updates the preview height if needed depending on the image size
- *	@param		aImage		The image that the preview will to for layout
- */
-- (void)layoutViewsFromImage:(UIImage*)aImage
-{
-	CGSize aSize = aImage.size;
-	
-	// Some image can be very small (though what's the point in uploading to flickr :)
-	CGFloat aMaxWidth = aSize.width > 320.0 ? 320.0 : aMaxWidth;
-	
-	CGFloat aCurrY = _preview.frame.origin.y;
-	// Update preview view
-	[_preview setFrame:CGRectMake(_preview.frame.origin.x, aCurrY , 
-								  aMaxWidth, aMaxWidth*aSize.height/aSize.width)];
-	
-	// Update all other views contained in 	_detailsView
-	aCurrY += _preview.frame.size.height + 5;
-	[_detailsView setFrame:CGRectMake(_detailsView.frame.origin.x, aCurrY,
-									  _detailsView.frame.size.width, _detailsView.frame.size.height)];
-	
-	aCurrY += _detailsView.frame.size.height;
-	[_commentsView setFrame:CGRectMake(_commentsView.frame.origin.x, aCurrY,
-									  _commentsView.frame.size.width, _commentsView.frame.size.height)];
-	
-	
-	// Update ScrollView and leave a little space from the bottom
-	aCurrY += _commentsView.frame.size.height;
-	UIScrollView* aScrollView = (UIScrollView*)self.view;
-	aScrollView.contentSize = CGSizeMake(320, aCurrY);
-	
-}
-
-/*! @method		layoutStats
- *	@abstract	Updates Stats view for the current photo (comments,favs ...)
- */
-- (void)layoutStats
-{
-REQUIRE (_photo != nil)
-	
-	[_photoViews setText:[NSString stringWithFormat:@"%d", (_photo.views > 0) ? _photo.views : 0]];
-	[_photoFavs setText:[NSString stringWithFormat:@"%d",(_photo.favourites > 0) ? _photo.favourites : 0]];
-	[_photoComments setText:[NSString stringWithFormat:@"%d", (_photo.comments > 0) ? _photo.comments : 0]];
-}
-
-/*! @method		layoutComments
- *	@abstract	Updates Comments view for the current photo 
- */
-- (void)layoutComments
-{
-REQUIRE (_photo != nil)
-	
-	// Will hold the webviews that have an updated layout
-	_webViewsProcessed = 0;
-
-	NSArray* aComments = [[DBCommentAccessor instance] commentsForPhoto:_photo];
-	
-	// TODO: Comment Fetching might be migrated directly into the DBPhoto build process
-	if (_photo.comments > [aComments count])
-	{
-		// Retreives application delegate for future callback
-		BetterFlickrAppDelegate*aDelegate = (BetterFlickrAppDelegate*)[[UIApplication sharedApplication] delegate];
-		
-		[[aDelegate flickrDelegate] createRequestFromAPI:kFlickrPhotosCommentsList
-											   arguments:[NSDictionary dictionaryWithObjectsAndKeys:
-														  [_photo pid], @"photo_id",  nil]];
-	}
-	
-	for (int i = 0; i < [aComments count]; i++)
-	{
-		// Retreives comment
-		DBComment* aComment = (DBComment*)[aComments objectAtIndex:i];
-		
-		// Creates and add subview to the comment view
-		[self addCommentViewFromComment:aComment];
-	}
-
-}
-
-
-/*! @method		addCommentViewFromComment:
- *	@abstract	Adds a UIView based on the passed comment
- *	@param		iComment	The comment from which the view will be built on
- */
-- (void)addCommentViewFromComment:(DBComment*)iComment
-{
-REQUIRE (iComment != nil)
-	
-	NSArray* nibContents = [[NSBundle mainBundle] loadNibNamed:@"DetailCommentView" 
-														 owner:self 
-													   options:nil];
-	NSEnumerator *nibEnumerator = [nibContents objectEnumerator];
-	
-	UIView* aCommentView = (UIView*)[nibEnumerator nextObject];
-	
-NEEDS(aCommentView != nil)
-	
-	for (int i = 0; i < [aCommentView.subviews count]; i++)
-	{
-		UIView* aSubView = [aCommentView.subviews objectAtIndex:i];
-		if (aSubView.tag > 0)
-		{
-			// Configure Author
-			if ([aSubView class] == [UILabel class])
-			{
-				UILabel* aAuthor = (UILabel*)aSubView;
-				aAuthor.text = iComment.refUser;
-			}
-			// Configure WebView (comment)
-			else if ([aSubView class] == [UIWebView class])
-			{
-				UIWebView* aCommentWebView = (UIWebView*)aSubView;
-				[aCommentWebView setDelegate:self];
-				[aCommentWebView setAutoresizesSubviews:YES];
-				[aCommentWebView loadHTMLString:[iComment contentForWebView]  baseURL:nil];
-			}
-		}
-	}
-	
-	[_commentsView addSubview:aCommentView];
-	
-	//UIView* aCommentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 5)];
-//	aCommentView.autoresizesSubviews = YES;
-//	aCommentView.opaque = YES;
-//	
-//	UILabel* aLabelView = [[UILabel alloc] initWithFrame:CGRectMake(0,0, 100, 16)];
-//	aLabelView.font = [UIFont fontWithName:@"Verdana" size:11];
-//	aLabelView.text = iComment.refUser;
-//	
-//	// Build comment view with zero sized rect to retreive a correct size once loaded
-//	UIWebView* aCommentWebView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 16, 300, 5)];
-//	aCommentWebView.delegate = self;
-//	aCommentWebView.tag = 1;
-//	aCommentWebView.opaque = YES;
-//	aCommentWebView.autoresizesSubviews = YES;
-//	
-//	// Load the content with an upgraded version that what's stored (black style, font...)
-//	[aCommentWebView loadHTMLString:[iComment contentForWebView]  baseURL:nil];
-//	
-//	//Add the created webview to the comment view
-//	[aCommentView addSubview:aLabelView];
-//	[aCommentView addSubview:aCommentWebView];
-//	[_commentsView addSubview:aCommentView];
-//	
-//	// Release already retained objects
-//	[aCommentWebView release];
-//	[aLabelView release];
-//	[aCommentView release];
-	
-}
+#pragma mark -
 #pragma mark Callbacks
 
 /*! @method		downloadDidComplete:data
@@ -305,102 +124,188 @@ REQUIRE (iData != nil)
 	[_activityPreview stopAnimating];
 	
 	// Update layout from image
-	[self layoutViewsFromImage:aImage];
+	//[self layoutViewsFromImage:aImage];
 	
 	// Release image object since it's retained in the preview button
 	[aImage release];
 }
 
+#pragma mark -
+#pragma mark UITableView delegate methods
+
+/* numberOfSectionsInTableView:
+ * Right now, should only return 1 because there is only 1 section in the tableview
+ * @return  Always 1
+ */
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
+{ return 1; }
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
+{
+REQUIRE (_comments != nil)
+	
+	return [_comments count] + kPhotoCellsNoComments;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+REQUIRE (_photo != nil)
+	
+	CGFloat aRowHeight = 40.0;
+	if (indexPath.row == 0)
+	{
+		CGSize aPhotoSize = [_photo sizeForPhotoSize:OFFlickrMediumSize];
+		if (!CGSizeEqualToSize(aPhotoSize, CGSizeZero)) 
+		{
+			// Some image can be very small (though what's the point in uploading to flickr :)
+			CGFloat aMaxWidth = aPhotoSize.width > 320.0 ? 320.0 : aMaxWidth;
+			
+			aRowHeight = aMaxWidth*aPhotoSize.height/aPhotoSize.width;
+		}
+		else
+			aRowHeight = 90;
+	}
+	else
+	{
+		NSString* aContent = nil;
+		CGFloat	aTopPad = 20;
+		CGFloat aBottomPad = 0;
+		NSInteger aSizeFont = 20;
+		
+		if (indexPath.row == 1)
+		{
+			aTopPad		= 52;
+			aSizeFont	= 12;
+			aContent	= _photo.descr;
+			aBottomPad	= 10;
+		}
+		else
+		{
+REQUIRE (indexPath.row < [_comments count] + kPhotoCellsNoComments)
+			DBComment* aComment = (DBComment*)[_comments objectAtIndex:(indexPath.row - kPhotoCellsNoComments)];
+			aContent = aComment.content;
+		}
+		
+		// Calculate size the string would take taking only the width into account
+		CGSize aSize = [aContent sizeWithFont:[UIFont fontWithName:@"Verdana" size:aSizeFont]];
+		
+		// Calculate the height this should take by getting dividing with window max width
+		CGFloat aMaxHeight =  ceilf(aSize.width/320.0);
+		
+		// Don't forget the extra height from comment information
+		
+		
+		aRowHeight =aMaxHeight*15+aTopPad+aBottomPad;
+	}
+	
+	return aRowHeight;
+
+	
+	
+	//PhotoDetailCommentCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+REQUIRE (indexPath.row < [_comments count] + kPhotoCellsNoComments)
+	
+	UITableViewCell* aCell = nil;
+	
+	// First Row: Image View
+	if (indexPath.row == 0)
+	{
+		aCell = [tableView dequeueReusableCellWithIdentifier:kPhotoPreviewCellIdentifier];
+		
+		// Create Cell if needed
+		if (aCell == nil)
+			aCell = [[[UITableViewCell alloc] initWithStyle:UITableViewStylePlain 
+											reuseIdentifier:kPhotoPreviewCellIdentifier] autorelease];
+		// Build image from content for specified size
+		UIImage* aImage = [[UIImage alloc] initWithData:[_photo contentForPhotoSize:OFFlickrMediumSize]];
+		aCell.imageView.image = aImage;
+		
+		// Release objects
+		[aImage release];
+		
+	}
+	
+	else if (indexPath.row == 1)
+	{
+		aCell = (PhotoDetailInfoCell*)[tableView dequeueReusableCellWithIdentifier:kPhotoDetailInfoCellIdentifier];
+		if (aCell == nil) 
+		{
+			UIViewController *c = [[UIViewController alloc] initWithNibName:@"DetailInfoCell" bundle:nil];
+REQUIRE([c.view class] == [PhotoDetailInfoCell class])
+			
+			// Set current cell to the main view cell/
+			// Caution: it has to be set via IB by connecting the ViewController.view 
+			// to the PhotoViewCell
+			aCell = (PhotoDetailInfoCell*)c.view;
+			
+			// the cell will be retained so we can safely release the controller
+			[c release];
+		}
+		
+REQUIRE (_photo != nil)
+		[(PhotoDetailInfoCell*)aCell layoutFromPhoto:_photo];
+
+		
+	}
+	else
+	{
+		aCell = (PhotoDetailCommentCell*)[tableView dequeueReusableCellWithIdentifier:kPhotoDetailCommentCellIdentifier];
+		if (aCell == nil) 
+		{
+			UIViewController *c = [[UIViewController alloc] initWithNibName:@"CommentViewCell" bundle:nil];
+REQUIRE([c.view class] == [PhotoDetailCommentCell class])
+			
+			// Set current cell to the main view cell/
+			// Caution: it has to be set via IB by connecting the ViewController.view 
+			// to the PhotoViewCell
+			aCell = (PhotoDetailCommentCell	*)c.view;
+			
+			// the cell will be retained so we can safely release the controller
+			[c release];
+		}
+		
+		// Build UITableViewCell from object
+		DBComment* aComment = (DBComment*)[_comments objectAtIndex:(indexPath.row - kPhotoCellsNoComments)];
+REQUIRE (aComment != nil)
+		[(PhotoDetailCommentCell*)aCell layoutFromComment:aComment];
+		
+		//TODO: Add special line if number of comments is to high
+		
+	}
+		 
+	return aCell;
+}
+
+- (void)tableView:(UITableView *)iTableView didSelectRowAtIndexPath:(NSIndexPath *)iIndexPath
+{
+//	[iTableView deselectRowAtIndexPath:iIndexPath animated:NO];		
+}
+
+#pragma mark -
 #pragma mark UIWebViewDelegate
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-	// Retreve the desired size for the webview
-	// Note that for this to work, the original size must be smaller than the desired one
-	CGSize s = [webView sizeThatFits:CGSizeZero];
-	
-	
-	// Differentiate the webview for description than the one for comments
-	// If it's a webview for comments we must update the container view and the scroll view
-	if (webView.tag > 0)
-	{
-//		// Retreive last view object
-//		UIWebView* aLastWebView = nil;
-//		for (int i = [_commentsView.subviews count] - 1; i >= 0 && aLastWebView == nil; i--)
-//		{
-//			UIView* aSubView = [_commentsView.subviews objectAtIndex:i];
-//			if ([aSubView class] == [UIWebView class])
-//				aLastWebView = (UIWebView*)aSubView;
-//		}
+//	// Retreve the desired size for the webview
+//	// Note that for this to work, the original size must be smaller than the desired one
+//	CGSize s = [webView sizeThatFits:CGSizeZero];
+//	
+//	
+//	[webView setFrame:CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, s.height)];
+//		
+//	// Update Comment View
+//	CGFloat y = 0; //_detailsView.frame.origin.y + webView.frame.origin.y+s.height + 5;
+//	[_commentsView setFrame:CGRectMake(_commentsView.frame.origin.x, y, 
+//									   _commentsView.frame.size.width, _commentsView.frame.size.height)];
+//	
+//	// Update main scroll view
+//	[self layoutScrollView];
 		
-		UIView* aParentView = [webView superview];
-		
-		// Updates the webview getting the other ones into account
-		// Especially the last one Y and Height
-		[webView setFrame:CGRectMake(_commentsView.frame.origin.x, 
-									 webView.frame.origin.y,
-									 _commentsView.frame.size.width, 
-									 s.height)];
-		
-		[aParentView setFrame:CGRectMake(_commentsView.frame.origin.x, 
-									 webView.frame.origin.y,
-									 _commentsView.frame.size.width, 
-									 s.height + 22)];
-		
-		// Retreives comments for the specified photo
-		NSArray* aComments = [[DBCommentAccessor instance] commentsForPhoto:_photo];
-		
-		// Increment the number of processed comments
-		_webViewsProcessed++;
-	
-		// If we reached the desired number of comments udpate the comment view
-		if (_webViewsProcessed == [aComments count])
-		{
-			CGFloat aCurrY = 0;
-			CGFloat aWidth = 300;
-			for (int i = 0; i < [_commentsView.subviews count]; i++)
-			{
-				UIView* aSubView = [_commentsView.subviews objectAtIndex:i];
-				//if ([aSubView class] == [UIWebView class])
-				//{
-					CGFloat aViewHeight = aSubView.frame.size.height;
-					[aSubView setFrame:CGRectMake(0, aCurrY, aWidth, aViewHeight)];
-					aCurrY += aViewHeight;
-				//}
-			}
-			
-//			// Finally update the comment view after adding all subviews height
-//			[_commentsView setFrame:CGRectMake(_commentsView.frame.origin.x, _commentsView.frame.origin.y, 
-//											   _commentsView.frame.size.width, aCurrY)];
-			
-			[_detailsView setFrame:CGRectMake(_detailsView.frame.origin.x, _detailsView.frame.origin.y, 
-											  _detailsView.frame.size.width, _detailsView.frame.size.height+aCurrY)];
-			
-			
-			// Update main scroll view
-			[self layoutScrollView];
-		}
-		
-		
-//		[_commentsView setFrame:CGRectMake(_commentsView.frame.origin.x, _commentsView.frame.origin.y, 
-//										   _commentsView.frame.size.width, _commentsView.frame.size.height+webView.frame.size.height)];
-//		// Update main scroll view
-//		[self layoutScrollView];
-	}
-	// If it's a webview for description we must update 
-	else
-	{
-		[webView setFrame:CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, s.height)];
-		
-		// Update Comment View
-		CGFloat y = _detailsView.frame.origin.y + webView.frame.origin.y+s.height;
-		[_commentsView setFrame:CGRectMake(_commentsView.frame.origin.x, y, 
-										   _commentsView.frame.size.width, _commentsView.frame.size.height)];
-		
-		// Update main scroll view
-		[self layoutScrollView];
-		
-	}
 			
 	
 }

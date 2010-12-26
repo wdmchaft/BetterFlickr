@@ -25,6 +25,7 @@
 		040BA75E12908AE8007300E4 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 040BA75D12908AE8007300E4 /* libsqlite3.dylib */; };
 		040BA76112908B02007300E4 /* libObjectiveFlickr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 040BA6D912908881007300E4 /* libObjectiveFlickr.a */; };
 		0457E0A812AAB9BE00D046F9 /* PhotoDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0457E0A612AAB9BE00D046F9 /* PhotoDetailsViewController.m */; };
+		0472E6B212C77EFB007695D5 /* DetailInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0472E6B112C77EFB007695D5 /* DetailInfoCell.xib */; };
 		04DDEFF112BCFA9B004D039D /* FirstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DDEFEC12BCFA9B004D039D /* FirstView.xib */; };
 		04DDEFF212BCFA9B004D039D /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DDEFED12BCFA9B004D039D /* LoginViewController.xib */; };
 		04DDEFF312BCFA9B004D039D /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DDEFEE12BCFA9B004D039D /* MainWindow.xib */; };
@@ -37,7 +38,7 @@
 		04DDF2E412BE5AB7004D039D /* DBCommentAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DDF2E312BE5AB7004D039D /* DBCommentAccessor.m */; };
 		04DDF5E712BEB832004D039D /* DetailCommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DDF5E612BEB832004D039D /* DetailCommentView.xib */; };
 		04DDF6AA12BFF876004D039D /* CommentViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DDF6A912BFF876004D039D /* CommentViewCell.xib */; };
-		04DDF6AF12BFF901004D039D /* CommentViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DDF6AE12BFF901004D039D /* CommentViewCell.m */; };
+		04DDFA2812C76569004D039D /* PhotoDetailCells.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DDFA2712C76569004D039D /* PhotoDetailCells.m */; };
 		04E3192312A130F600F6F837 /* comments.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E3192012A130F600F6F837 /* comments.png */; };
 		04E3192412A130F600F6F837 /* favourites.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E3192112A130F600F6F837 /* favourites.png */; };
 		04E3192512A130F600F6F837 /* views.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E3192212A130F600F6F837 /* views.png */; };
@@ -107,6 +108,7 @@
 		040BA75D12908AE8007300E4 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		0457E0A512AAB9BE00D046F9 /* PhotoDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoDetailsViewController.h; sourceTree = "<group>"; };
 		0457E0A612AAB9BE00D046F9 /* PhotoDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoDetailsViewController.m; sourceTree = "<group>"; };
+		0472E6B112C77EFB007695D5 /* DetailInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DetailInfoCell.xib; path = Resources/DetailInfoCell.xib; sourceTree = "<group>"; };
 		04DDEFEC12BCFA9B004D039D /* FirstView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FirstView.xib; path = Resources/FirstView.xib; sourceTree = "<group>"; };
 		04DDEFED12BCFA9B004D039D /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LoginViewController.xib; path = Resources/LoginViewController.xib; sourceTree = "<group>"; };
 		04DDEFEE12BCFA9B004D039D /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = Resources/MainWindow.xib; sourceTree = "<group>"; };
@@ -121,8 +123,8 @@
 		04DDF2E312BE5AB7004D039D /* DBCommentAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBCommentAccessor.m; sourceTree = "<group>"; };
 		04DDF5E612BEB832004D039D /* DetailCommentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DetailCommentView.xib; path = Resources/DetailCommentView.xib; sourceTree = "<group>"; };
 		04DDF6A912BFF876004D039D /* CommentViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CommentViewCell.xib; path = Resources/CommentViewCell.xib; sourceTree = "<group>"; };
-		04DDF6AD12BFF901004D039D /* CommentViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentViewCell.h; sourceTree = "<group>"; };
-		04DDF6AE12BFF901004D039D /* CommentViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentViewCell.m; sourceTree = "<group>"; };
+		04DDFA2612C76569004D039D /* PhotoDetailCells.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoDetailCells.h; sourceTree = "<group>"; };
+		04DDFA2712C76569004D039D /* PhotoDetailCells.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoDetailCells.m; sourceTree = "<group>"; };
 		04E3192012A130F600F6F837 /* comments.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = comments.png; path = images/16x16/comments.png; sourceTree = "<group>"; };
 		04E3192112A130F600F6F837 /* favourites.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = favourites.png; path = images/16x16/favourites.png; sourceTree = "<group>"; };
 		04E3192212A130F600F6F837 /* views.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = views.png; path = images/16x16/views.png; sourceTree = "<group>"; };
@@ -168,10 +170,10 @@
 		040BA71B12908933007300E4 /* cells */ = {
 			isa = PBXGroup;
 			children = (
+				04DDFA2612C76569004D039D /* PhotoDetailCells.h */,
+				04DDFA2712C76569004D039D /* PhotoDetailCells.m */,
 				040BA74A12908A25007300E4 /* PhotoViewCell.h */,
 				040BA74B12908A25007300E4 /* PhotoViewCell.m */,
-				04DDF6AD12BFF901004D039D /* CommentViewCell.h */,
-				04DDF6AE12BFF901004D039D /* CommentViewCell.m */,
 			);
 			name = cells;
 			sourceTree = "<group>";
@@ -265,6 +267,7 @@
 		04E3192812A1310C00F6F837 /* NIB Files */ = {
 			isa = PBXGroup;
 			children = (
+				0472E6B112C77EFB007695D5 /* DetailInfoCell.xib */,
 				04DDF5E612BEB832004D039D /* DetailCommentView.xib */,
 				04DDF2C712BE5151004D039D /* PhotoDetailsViewController.xib */,
 				04DDEFEC12BCFA9B004D039D /* FirstView.xib */,
@@ -427,6 +430,7 @@
 				04DDF2C812BE5151004D039D /* PhotoDetailsViewController.xib in Resources */,
 				04DDF5E712BEB832004D039D /* DetailCommentView.xib in Resources */,
 				04DDF6AA12BFF876004D039D /* CommentViewCell.xib in Resources */,
+				0472E6B212C77EFB007695D5 /* DetailInfoCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,7 +460,7 @@
 				0457E0A812AAB9BE00D046F9 /* PhotoDetailsViewController.m in Sources */,
 				04DDF2CB12BE5169004D039D /* DBComment.m in Sources */,
 				04DDF2E412BE5AB7004D039D /* DBCommentAccessor.m in Sources */,
-				04DDF6AF12BFF901004D039D /* CommentViewCell.m in Sources */,
+				04DDFA2812C76569004D039D /* PhotoDetailCells.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
