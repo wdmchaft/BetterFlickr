@@ -52,9 +52,9 @@
 {
 	_comment = [iComment retain];
 	
-	_user.text = [iComment refUser];
-	_content.text = [iComment content];
-	
+	_user.text			= [iComment refUser];
+	_content.text		= [iComment contentWithoutHTML];
+	_dateCreated.text	= [iComment dateCreatedFormatted];
 }
 
 @end

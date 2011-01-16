@@ -63,15 +63,15 @@
 		_owner		= [[NSString alloc] initWithDictionary:iDictionary key:kPhotoOwnerColumnName];
 		_secret		= [[NSString alloc] initWithDictionary:iDictionary key:kPhotoSecretColumnName];
 		_title		= [[NSString alloc] initWithDictionary:iDictionary key:kPhotoTitleColumnName];
-		_taken		= [[NSString alloc] initWithDictionary:iDictionary key:kPhotoTakenColumnName];
+		_taken		= [[NSString alloc] initWithDictionary:iDictionary key:kPhotoTakenDictName];
 		_desc		= [[NSString alloc] initWithDictionary:iDictionary key:kPhotoDescriptionColumnName];
 		_path		= [[NSString alloc] initWithDictionary:iDictionary key:kPhotoPathColumnName];
 		
 		_farm		= [NSString integerFromDictionary:iDictionary key:kPhotoFarmColumnName];
 		_server		= [NSString integerFromDictionary:iDictionary key:kPhotoServerColumnName];
 		_isPublic	= [NSString integerFromDictionary:iDictionary key:kPhotoIsPublicColumnName];
-		_posted		= [NSString integerFromDictionary:iDictionary key:kPhotoPostedColumnName];
-		_updated	= [NSString integerFromDictionary:iDictionary key:kPhotoUpdatedColumnName];
+		_posted		= [NSString integerFromDictionary:iDictionary key:kPhotoPostedDictName];
+		_updated	= [NSString integerFromDictionary:iDictionary key:kPhotoUpdatedDictName];
 		_views		= [NSString integerFromDictionary:iDictionary key:kPhotoViewsColumnName];
 		_comments	= [NSString integerFromDictionary:iDictionary key:kPhotoCommentsColumnName];
 		_favourites	= [NSString integerFromDictionary:iDictionary key:kPhotoFavouritesColumnName];
@@ -107,12 +107,12 @@
 	// So leave it empty
 	NSString* aExt = @"";
 	if ([iSize length])
-		aExt = [NSString stringWithFormat:@"_%@", iSize];
+		aExt = [aExt stringByAppendingFormat:@"_%@", iSize];
 	
 	
 	BOOL aIsStored = NO;
 	
-	if (_path != nil)
+	if (_path != nil && [_path length] > 0)
 	{
 		// The filemanager will be used to retreive the content of the file if the path is already set
 		NSFileManager *aFileManager = [NSFileManager defaultManager];
@@ -140,7 +140,7 @@
 	// So leave it empty
 	NSString* aExt = @"";
 	if ([iSize length])
-		aExt = [NSString stringWithFormat:@"_%@", iSize];
+		aExt = [aExt stringByAppendingFormat:@"_%@", iSize];
 	
 	
 	NSString* aPhotoPath = nil; 
@@ -175,7 +175,7 @@
 	// So leave it empty
 	NSString* aExt = @"";
 	if ([iSize length])
-		aExt = [NSString stringWithFormat:@"_%@", iSize];
+		aExt = [aExt stringByAppendingFormat:@"_%@", iSize];
 		
 	
 	NSData* aContent = nil; 
@@ -277,20 +277,32 @@ REQUIRE([_id length] > 0)
  */
 - (DBPhoto*)updateFromPhoto:(DBPhoto*)iPhoto
 {
-	if (iPhoto.descr)
+	if (iPhoto.descr && [iPhoto.descr length] > 0)
 		self.descr = iPhoto.descr;
-	if (iPhoto.views)
+	
+	if (iPhoto.views && iPhoto.views > 0)
 		self.views = iPhoto.views;
-	if (iPhoto.comments)
+	
+	if (iPhoto.comments && iPhoto.comments > 0)
 		self.comments = iPhoto.comments;
-	if (iPhoto.favourites)
+	
+	if (iPhoto.favourites && iPhoto.favourites > 0)
 		self.favourites = iPhoto.favourites;
-	if (iPhoto.taken)
+	
+	if (iPhoto.taken && [iPhoto.taken length] > 0)
 		self.taken= iPhoto.taken;
-	if (iPhoto.updated)
+	
+	if (iPhoto.title && [iPhoto.title length] > 0)
+		self.title= iPhoto.title;
+	
+	if (iPhoto.updated && iPhoto.updated > 0)
 		self.updated= iPhoto.updated;
-	if (iPhoto.posted)
+	
+	if (iPhoto.posted && iPhoto.posted > 0)
 		self.posted = iPhoto.posted;
+	
+	if (iPhoto.path && [iPhoto.path length] > 0> 0)
+		self.path = iPhoto.path;
 		 
 	return self;
 	

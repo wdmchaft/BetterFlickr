@@ -26,7 +26,7 @@
 #define kCommentRefPhotoColumnName		@"refPhoto"
 
 // Dictionary Names
-#define kCommentDicName				@"comment"
+#define kCommentDictName			@"comment"
 #define kCommentIdDictName			@"id"
 #define kCommentContentDictName		@"_text"
 #define kCommentDateCreatedDictName	@"datecreate"
@@ -56,6 +56,20 @@
  * @result		An HTML String with the photo description
  */
 - (NSString *)contentForWebView;
+
+/*!
+ * @method		contentWithoutHTML:
+ * @abstract	Overrides the description field without html tags
+ * @result		The description field of the comment with html tags
+ */
+- (NSString *)contentWithoutHTML;
+
+/*!
+ * @method		dateCreatedFormatted:
+ * @abstract	Overrides the dateCreated field to be readable
+ * @result		A readable form of the dateCreated field
+ */
+- (NSString *)dateCreatedFormatted;
 
 @property (nonatomic, retain) NSString*	cid;
 @property (nonatomic, retain) NSString*	content;

@@ -152,8 +152,8 @@ REQUIRE(iPhoto != nil)
 								   [kPhotoFarmColumnName cStringUsingEncoding:NSUTF8StringEncoding],		[NSString cSatementSafeStringFromInteger:iPhoto.farm],
 								   [kPhotoServerColumnName  cStringUsingEncoding:NSUTF8StringEncoding],		[NSString cSatementSafeStringFromInteger:iPhoto.server],
 								   [kPhotoIsPublicColumnName cStringUsingEncoding:NSUTF8StringEncoding],	[NSString cSatementSafeStringFromInteger:iPhoto.isPublic],
-								   [kPhotoPostedColumnName cStringUsingEncoding:NSUTF8StringEncoding],		[NSString cSatementSafeStringFromInteger:iPhoto.updated],
-								   [kPhotoUpdatedColumnName cStringUsingEncoding:NSUTF8StringEncoding],		[NSString cSatementSafeStringFromInteger:iPhoto.posted],
+								   [kPhotoPostedColumnName cStringUsingEncoding:NSUTF8StringEncoding],		[NSString cSatementSafeStringFromInteger:iPhoto.posted],
+								   [kPhotoUpdatedColumnName cStringUsingEncoding:NSUTF8StringEncoding],		[NSString cSatementSafeStringFromInteger:iPhoto.updated],
 								   [kPhotoViewsColumnName cStringUsingEncoding:NSUTF8StringEncoding],		[NSString cSatementSafeStringFromInteger:iPhoto.views],
 								   [kPhotoCommentsColumnName cStringUsingEncoding:NSUTF8StringEncoding],	[NSString cSatementSafeStringFromInteger:iPhoto.comments],
 								   [kPhotoFavouritesColumnName cStringUsingEncoding:NSUTF8StringEncoding],	[NSString cSatementSafeStringFromInteger:iPhoto.favourites],
@@ -226,12 +226,13 @@ REQUIRE(iUser != nil)
 REQUIRE([iUser nsid] != nil)
 	
 	// Creating Select Query
-	NSString* aQuery = [NSString stringWithFormat:@"SELECT %@ FROM %@ WHERE %@ = '%@'",
+	NSString* aQuery = [NSString stringWithFormat:@"SELECT %@ FROM %@ WHERE %@ = '%@' ORDER BY %@ DESC",
 						[self preparationStatement],
 						
 						kPhotoTableName,
 						kPhotoOwnerColumnName,
-						[iUser nsid]];
+						[iUser nsid],
+						kPhotoPostedColumnName];
 	
 	// Retrieve the DB object if already existing
 	NSArray* aArray = [self arrayOfObjectsFromQuery:[aQuery UTF8String] object:[DBPhoto class]];

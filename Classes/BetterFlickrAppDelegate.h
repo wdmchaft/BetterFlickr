@@ -12,11 +12,14 @@
 
 #define kTabBarUserPhotoStreamIndex 0
 
+#define kUserSettingPhotostreamLayout @"photostream_layout"
+#define kUserSettingPhotostreamLayoutGrid @"grid"
+#define kUserSettingPhotostreamLayoutList @"list"
+
 @class ObjectiveFlickrDelegate;
 @class DBPhoto;
 @class OFFlickrAPIContext;
 @class OFFlickrAPIRequest;
-
 
 @interface BetterFlickrAppDelegate : NSObject <UIApplicationDelegate, 
 	UITabBarControllerDelegate, 
@@ -49,8 +52,6 @@
 // 
 - (Boolean) resetDatabase;
 
-
-
 #pragma mark -
 #pragma mark BetterFlickr Controlling Functions
 
@@ -66,8 +67,19 @@
  * @method		gotNewPhotos
  * @abstract	Called whenever a new photo is inserted and an update on the current view is needed.
  *				The behaviour will be calculated depending on the current controller called.
+ * @param		idObj	always nil
+ * @param		data	The array of photos just fetched
  */
-- (void)gotNewPhotos;
+- (void)gotNewPhotos:(id)idObj data:(id)data;
+
+/*!
+ * @method		gotUpdatedInfoForPhoto
+ * @abstract	Called whenever information such as comments for favourites for a specific
+ *				photo has been retreived.
+ *				The behaviour will be calculated depending on the current controller called.
+ * @param		iPhoto
+ */
+- (void)gotUpdatedInfoForPhoto:(DBPhoto*)iPhoto;
 
 
 #pragma mark -
@@ -89,6 +101,14 @@
 - (NSString*) extenstionFromImage:(UIImage*)iImage;
 
 /*!
+ * @method		registerUserSetting:
+ * @abstract	Calls NSUserDefaults interface to register application shared settings
+ *				Useful to have it at main thread level to always call the same function
+ * @param		iValue	The image from which the extension will be calculated
+ */
+- (void) registerUserSetting:(NSObject*)iValue forKey:(NSString*)iKey;
+
+/*!
  * @method		savePhotoOnFileSystem:data
  * @abstract	Saves the photo locally on the iPhone inside the application Documents folder.
  *				The purpose is to have the application runs extremly fast and avoid
@@ -98,5 +118,6 @@
  * @result		YES if correctly saved on the filesystemm, NO otherwise.
  */
 - (BOOL)savePhotoOnFileSystem:(DBPhoto*)iPhoto data:(NSData*)iData;
+
 
 @end

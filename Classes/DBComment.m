@@ -9,6 +9,8 @@
 #import "DBComment.h"
 #import "Strings.h"
 
+#import "TFHpple.h"
+
 @implementation DBComment
 
 @synthesize cid = _id;
@@ -68,7 +70,7 @@ REQUIRE ([refPhotoId length])
 	[super dealloc];
 }
 
-#pragma mark Useful Functions
+#pragma mark Formating Functions
 
 /*!
  * @method		contentForWebView:
@@ -81,6 +83,46 @@ REQUIRE ([refPhotoId length])
 			@"<style type=\"text/css\">p {color:blue} a {color:white} </style>",
 			@"background-color:black;font-family:Verdana;font-size:11;color:#888;padding:0;margin:1px 5px;",
 			self.content];
+}
+
+/*!
+ * @method		contentWithoutHTML:
+ * @abstract	Overrides the description field without html tags
+ * @result		The description field of the comment with html tags
+ */
+- (NSString *)contentWithoutHTML
+{
+	TFHpple* aXPathParser	= [[TFHpple alloc] initWithHTMLData:[_content dataUsingEncoding:NSUTF8StringEncoding]];
+	NSArray* aArrayAllText	= [aXPathParser search:@"//*/text()"]; // get the page title - this is xpath notation
+	NSString* aStrippedHTML = @"";
+	
+	for (TFHppleElement* element in aArrayAllText)
+			aStrippedHTML = [aStrippedHTML stringByAppendingString:[element content]];
+	
+	[aXPathParser release];
+	
+	return aStrippedHTML;
+}
+
+/*!
+ * @method		dateCreatedFormatted:
+ * @abstract	Overrides the dateCreated field to be readable
+ * @result		A readable form of the dateCreated field
+ */
+- (NSString *)dateCreatedFormatted
+{
+	NSDate* aRefDate = [NSDate dateWithTimeIntervalSince1970:[_dateCreated doubleValue]];
+	
+	NSString *aDateFormat			= @"MMM dd yyyy";
+	NSDateFormatter *aDateFormatter = [[NSDateFormatter alloc] init];
+	
+	[aDateFormatter setDateFormat:aDateFormat];
+	
+	NSString *newDateString = [aDateFormatter stringFromDate:aRefDate];
+	
+	[aDateFormatter release];
+	
+	return newDateString;
 }
 
 

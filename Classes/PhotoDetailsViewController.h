@@ -49,6 +49,12 @@
  */
 - (void)photoDownloadDidComplete:(id)iObjID data:(NSData*)iData;
 
+/*! @method		gotUpdatedInformation:
+ *	@abstract	Callback for when information such as comments has been sucessfully downloaded
+ *	@param		iObjID		The BOM object from which the information has been retreived
+ */
+- (void)gotUpdatedInformation:(id)iObjID;
+
 #pragma mark Layout Functions
 
 

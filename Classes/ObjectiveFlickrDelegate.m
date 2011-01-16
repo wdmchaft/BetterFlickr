@@ -119,16 +119,12 @@ REQUIRE([aPhotoArray count] > 0)
 		// Create the photo only if not already existing otheriwse
 		// another part of the code should be called
 		// TODO: Implement part when already existing photo
-		if (aDBPhoto == nil)
-		{
-			if ([[DBPhotoAccessor instance] insertPhoto:aPhoto])
-				aIsPhotoInserted = YES; // At least one photo inserted
-			
-			//NSURL *aStaticPhotoURL = [aDBPhoto urlForPhotoSize:OFFlickrSmallSquareSize];
-			//aStaticPhotoURL = nil;
-			
-			
-		}
+		if (aDBPhoto != nil)
+			[aPhoto updateFromPhoto:aDBPhoto];
+		
+		if ([[DBPhotoAccessor instance] savePhoto:aPhoto])
+			aIsPhotoInserted = YES; // At least one photo inserted
+
 		
 		// Release photo
 		[aPhoto release];
@@ -154,7 +150,7 @@ REQUIRE([aPhotoArray count] > 0)
 	
 	// And notify the application that we have fetched some photos
 	if (aIsPhotoInserted)
-		[[self betterFlickrDelegate] gotNewPhotos];
+		[[self betterFlickrDelegate] gotNewPhotos:nil data:aPhotoArray];
 }
 
 - (void)processPhotoInfo:(NSDictionary*)iDicPhoto
@@ -175,6 +171,9 @@ REQUIRE(iDicPhoto != nil)
 	
 	// Release objects
 	[aPhoto release];
+	
+	// Alert the main delegate about the succesful flickr call
+	[[self betterFlickrDelegate] gotUpdatedInfoForPhoto:aPhoto];
 }
 
 - (void)processPhotoFavorites:(NSDictionary*)iDicPhoto
@@ -196,6 +195,10 @@ REQUIRE(iDicPhoto != nil)
 	// Release Objects
 	[aPhoto release];
 	
+	// Alert the main delegate about the succesful flickr call
+	[[self betterFlickrDelegate] gotUpdatedInfoForPhoto:aDBPhoto];
+	
+	
 }
 
 /*! @method		processPhotoComments:
@@ -214,7 +217,7 @@ REQUIRE(iDicPhoto != nil)
 {
 REQUIRE(iDicComments != nil)
 	
-	NSArray* aComments	= [iDicComments objectForKey:kCommentDicName];
+	NSArray* aComments	= [iDicComments objectForKey:kCommentDictName];
 	NSString* aRefPhoto = [iDicComments objectForKey:kCommentRefPhotoDictName];
 	
 REQUIRE ([aRefPhoto length])
@@ -234,7 +237,10 @@ REQUIRE ([aRefPhoto length])
 			[aComment release];
 			
 		}
-		//TODO: Call the PhotoDetails back for layoutComments
+		
+		// Alert the main delegate about the succesful flickr call
+		DBPhoto* aPhoto = [[DBPhotoAccessor instance] photoFromId:aRefPhoto];
+		[[self betterFlickrDelegate] gotUpdatedInfoForPhoto:aPhoto];
 	}
 }
 

@@ -30,3 +30,17 @@ CREATE TABLE Photos(
  PRIMARY KEY (id)
  
 );
+
+CREATE TABLE Comments(
+ id          VARCHAR(63) UNIQUE NOT NULL,
+ content     TEXT NOT NULL,
+ dateCreated VARCHAR(31) NOT NULL,
+ 
+ refUser     VARCHAR(31) NOT NULL,
+ refPhoto    VARCHAR(31) NOT NULL,
+
+ PRIMARY KEY (id),
+ FOREIGN KEY (refUser) 	REFERENCES User  (nsid),
+ FOREIGN KEY (refPhoto) REFERENCES Photo (id)
+ 
+);

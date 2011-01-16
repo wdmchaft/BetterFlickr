@@ -36,9 +36,6 @@ static const NSInteger kAlertViewLogin = 1;
 @synthesize tabBarController;
 
 @synthesize flickrDelegate;
-//@synthesize flickrRequest;
-
-
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -49,8 +46,8 @@ static const NSInteger kAlertViewLogin = 1;
 	[application setStatusBarStyle:UIStatusBarStyleBlackOpaque];
 	
 	// Create the initial Controller
-	PhotostreamViewController* rViewController = [[[PhotostreamViewController alloc] initWithNibName:@"PhotostreamView" bundle:[NSBundle mainBundle]] autorelease];
-	rViewController.title = @"BetterFlickr";
+	PhotostreamViewController* rViewController = [[[PhotostreamViewController alloc] initWithNibName:@"PhotostreamView" 
+																							  bundle:[NSBundle mainBundle]] autorelease];
 	
 	// Add it to a navigation controller
 	UINavigationController *rNavController = [[UINavigationController alloc] initWithRootViewController:rViewController];          
@@ -85,11 +82,19 @@ static const NSInteger kAlertViewLogin = 1;
 												   otherButtonTitles:NSLocalizedString(kLocaleNo, nil), nil];
 		[aAlertView setTag:kAlertViewLogin];
 		[aAlertView show];
+		
+		
 	}
 	
 	// DBUser was already signed in, process first action
-	else 
+	else
+	{
 		[self firstAction];
+		
+		if (aMainUser.isMainUser)
+			rViewController.title = NSLocalizedString(kLocalePhotoYourPhotostream, nil);
+	}
+		
 
     return YES;
 }
@@ -100,7 +105,8 @@ static const NSInteger kAlertViewLogin = 1;
      Sent when the application is about to move from active to inactive state. 
 	 This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) 
 	 or when the user quits the application and it begins the transition to the background state.
-     Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+     Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. 
+	 Games should use this method to pause the game.
      */
 }
 
@@ -116,7 +122,8 @@ static const NSInteger kAlertViewLogin = 1;
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     /*
-     Called as part of  transition from the background to the inactive state: here you can undo many of the changes made on entering the background.
+     Called as part of  transition from the background to the inactive state: here you can undo many of the changes made on entering
+	 the background.
      */
 }
 
@@ -148,13 +155,20 @@ static const NSInteger kAlertViewLogin = 1;
 
 /*
 // Optional UITabBarControllerDelegate method.
-- (void)tabBarController:(UITabBarController *)tabBarController didEndCustomizingViewControllers:(NSArray *)viewControllers changed:(BOOL)changed {
+- (void)tabBarController:(UITabBarController *)tabBarController didEndCustomizingViewControllers:(NSArray *)viewControllers 
+ changed:(BOOL)changed {
 }
 */
 
 #pragma mark -
 #pragma mark BetterFlickr methods
 
+/*!
+ * @method		firstAction
+ * @abstract	Process the first action done when all conditions are met.
+ *				The purpose of this method is to gather all actions during first time of launch
+ *				and to be used whatever the previous steps (call back from url or first launch)
+ */
 - (void) firstAction
 {
 REQUIRE([self flickrDelegate] != nil)	
@@ -165,7 +179,8 @@ REQUIRE([self flickrDelegate] != nil)
 	{
 		[[self flickrDelegate] createRequestFromAPI:kFlickrPeoplePhotos 
 										  arguments:[NSDictionary dictionaryWithObjectsAndKeys:
-															   [aMainUser nsid], @"user_id", nil]];
+																[aMainUser nsid], @"user_id", 
+																@"date_upload,date_taken,last_update", @"extras", nil]];
 
 		
 		NSArray* aPhotos = [[DBPhotoAccessor instance] photosFromUser:aMainUser];
@@ -174,10 +189,63 @@ REQUIRE([self flickrDelegate] != nil)
 		
 }
 
-- (void)gotNewPhotos
+#pragma mark -
+#pragma mark Application Callbacks
+
+/*!
+ * @method		gotNewPhotos
+ * @abstract	Called whenever a new photo is inserted and an update on the current view is needed.
+ *				The behaviour will be calculated depending on the current controller called.
+ */
+- (void)gotNewPhotos:(id)idObj data:(id)iData
 {
 REQUIRE([self flickrDelegate] != nil)
 	
+	// We need to know which view has focus in order to avoid core dumps
+	// when trying to refresh a view that doesn't exist anymore
+	if (tabBarController.selectedIndex == kTabBarUserPhotoStreamIndex)
+	{
+		// Get the corresponding View Controller for a callback
+		UINavigationController* aController = (UINavigationController*)tabBarController.selectedViewController;
+		
+		// Get the navigation controller top view controller
+		UIViewController* aTopController = aController.topViewController;
+		
+		// 1. It can come from a thumbnail download and the user is still on the photo stream view
+		if ([aTopController class] == [PhotostreamViewController class])
+		{
+			
+			PhotostreamViewController* aPhotoStreamController = (PhotostreamViewController*)aTopController;
+			
+			[aPhotoStreamController updateIsNeeded:idObj data:iData];
+		}
+	}
+		
+}
+
+/*!
+ * @method		gotUpdatedInfoForPhoto
+ * @abstract	Called whenever information such as comments for favourites for a specific
+ *				photo has been retreived.
+ *				The behaviour will be calculated depending on the current controller called.
+ * @param		iPhoto
+ */
+- (void)gotUpdatedInfoForPhoto:(DBPhoto*)iPhoto
+{
+REQUIRE([self flickrDelegate] != nil)	
+	
+	// Get the corresponding View Controller for a callback
+	UINavigationController* aController = (UINavigationController*)tabBarController.selectedViewController;
+	
+	// Get the navigation controller top view controller
+	UIViewController* aTopController = aController.topViewController;
+	
+	if ([aTopController class] == [PhotoDetailsViewController class])
+	{
+		PhotoDetailsViewController* aPhotoDetailsController = (PhotoDetailsViewController*)aTopController;
+		
+		[aPhotoDetailsController gotUpdatedInformation:iPhoto];
+	}
 	
 	
 }
@@ -270,9 +338,9 @@ REQUIRE(self.flickrDelegate);
 		else if ([iDownloader.sender class] == [PhotoDetailsViewController class] && 
 				 [aTopController class] == [PhotoDetailsViewController class])
 		{
-			PhotoDetailsViewController* aPhotoStreamController = (PhotoDetailsViewController*)aTopController;
+			PhotoDetailsViewController* aPhotoDetailsController = (PhotoDetailsViewController*)aTopController;
 			
-			[aPhotoStreamController photoDownloadDidComplete:iSender data:iData];
+			[aPhotoDetailsController photoDownloadDidComplete:iSender data:iData];
 		}
 				 
 	}
@@ -375,6 +443,21 @@ REQUIRE(self.flickrDelegate);
 #pragma mark  Useful Methods
 
 /*!
+ * @method		registerUserSetting:
+ * @abstract	Calls NSUserDefaults interface to register application shared settings
+ *				Useful to have it at main thread level to always call the same function
+ * @param		iValue	The image from which the extension will be calculated
+ */
+- (void) registerUserSetting:(NSObject*)iValue forKey:(NSString*)iKey
+{
+	NSUserDefaults *defaults	= [NSUserDefaults standardUserDefaults];
+	NSDictionary *appDefaults	= [NSDictionary dictionaryWithObject:iValue forKey:iKey];
+	
+	[defaults registerDefaults:appDefaults];
+	
+}
+
+/*!
  * @method		rootApplicationPath:data
  * @abstract	The complete path to the application Documents Folder (unique on the app)
  *				for example /Users/.../iPhone Simulator/4.0/Applications/CCA4418E-4915-4303-A5F3-CE7353FBC1B0/Documents
@@ -401,11 +484,14 @@ REQUIRE(iImage != nil)
 	CGFloat aHeight = iImage.size.height;
 	
 	if (MAX(aWidth,aHeight) == OFFlickrSmallSquareMaxSize)
-		aRes = OFFlickrSmallSquareSize;
+		aRes = [aRes stringByAppendingString:OFFlickrSmallSquareSize];
+	
 	else if (MAX(aWidth,aHeight) == OFFlickrThumbnailMaxSize)
-		aRes = OFFlickrThumbnailSize;
+		aRes = [aRes stringByAppendingString:OFFlickrThumbnailSize];
+	
 	else if (MAX(aWidth,aHeight) == OFFlickrSmallMaxSize)
-		aRes = OFFlickrSmallSize;
+		aRes = [aRes stringByAppendingString:OFFlickrSmallSize];
+	
 	else if (MAX(aWidth,aHeight) == OFFlickrMediumMaxSize)
 		aRes = @"";
 	

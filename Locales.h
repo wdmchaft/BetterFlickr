@@ -11,3 +11,9 @@
 #define kLocaleFirstLogin @"It seems you have not signed in using your flickr account yet.\nTo fully enjoy BetterFlickr would like to link it with your flickr account ?"
 #define kLocaleYes @"Yes"
 #define kLocaleNo @"No"
+
+#define kLocalePhotoYourPhotostream @"Photostream"
+
+#define kLocaleSettings @"Settings"
+#define kLocaleSettingsLayout @"Layout"
+#define kLocaleSettingsDone @"Done"

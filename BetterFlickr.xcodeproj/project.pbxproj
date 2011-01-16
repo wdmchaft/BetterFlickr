@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		040BA72712908993007300E4 /* betterflickr.sql in Resources */ = {isa = PBXBuildFile; fileRef = 040BA72512908993007300E4 /* betterflickr.sql */; };
 		040BA72F129089F7007300E4 /* DBAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 040BA72A129089F7007300E4 /* DBAccessor.m */; };
 		040BA730129089F7007300E4 /* DBUserAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 040BA72C129089F7007300E4 /* DBUserAccessor.m */; };
 		040BA731129089F7007300E4 /* DBPhotoAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 040BA72E129089F7007300E4 /* DBPhotoAccessor.m */; };
@@ -25,6 +24,17 @@
 		040BA75E12908AE8007300E4 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 040BA75D12908AE8007300E4 /* libsqlite3.dylib */; };
 		040BA76112908B02007300E4 /* libObjectiveFlickr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 040BA6D912908881007300E4 /* libObjectiveFlickr.a */; };
 		0457E0A812AAB9BE00D046F9 /* PhotoDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0457E0A612AAB9BE00D046F9 /* PhotoDetailsViewController.m */; };
+		04583D9C12E1E78E00CD758A /* betterflickr.sql in Resources */ = {isa = PBXBuildFile; fileRef = 04583D9B12E1E78E00CD758A /* betterflickr.sql */; };
+		04583DA312E1EE0400CD758A /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04583DA212E1EE0400CD758A /* libxml2.2.dylib */; };
+		04583DD212E1F17F00CD758A /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 04583DCD12E1F17F00CD758A /* TFHpple.m */; };
+		04583DD312E1F17F00CD758A /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 04583DCF12E1F17F00CD758A /* TFHppleElement.m */; };
+		04583DD412E1F17F00CD758A /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 04583DD112E1F17F00CD758A /* XPathQuery.m */; };
+		0458417A12E316C800CD758A /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0458417812E316C800CD758A /* SettingsViewController.m */; };
+		0458418212E316EE00CD758A /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0458418112E316EE00CD758A /* SettingsViewController.xib */; };
+		0458424412E336BE00CD758A /* SettingsList.png in Resources */ = {isa = PBXBuildFile; fileRef = 0458424312E336BE00CD758A /* SettingsList.png */; };
+		045842B212E33D7B00CD758A /* SettingsGrid.png in Resources */ = {isa = PBXBuildFile; fileRef = 045842AF12E33D7B00CD758A /* SettingsGrid.png */; };
+		045842B312E33D7B00CD758A /* SettingsGridSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 045842B012E33D7B00CD758A /* SettingsGridSelected.png */; };
+		045842B412E33D7B00CD758A /* SettingsListSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 045842B112E33D7B00CD758A /* SettingsListSelected.png */; };
 		0472E6B212C77EFB007695D5 /* DetailInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0472E6B112C77EFB007695D5 /* DetailInfoCell.xib */; };
 		04DDEFF112BCFA9B004D039D /* FirstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DDEFEC12BCFA9B004D039D /* FirstView.xib */; };
 		04DDEFF212BCFA9B004D039D /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DDEFED12BCFA9B004D039D /* LoginViewController.xib */; };
@@ -77,7 +87,6 @@
 /* Begin PBXFileReference section */
 		040BA6CD12908881007300E4 /* ObjectiveFlickr.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ObjectiveFlickr.xcodeproj; path = ../objectiveflickr/ObjectiveFlickr.xcodeproj; sourceTree = SOURCE_ROOT; };
 		040BA703129088FD007300E4 /* Locales.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Locales.h; sourceTree = "<group>"; };
-		040BA72512908993007300E4 /* betterflickr.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = betterflickr.sql; path = ../BetterFlickrBak/SQLite/betterflickr.sql; sourceTree = "<group>"; };
 		040BA729129089F7007300E4 /* DBAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBAccessor.h; sourceTree = "<group>"; };
 		040BA72A129089F7007300E4 /* DBAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAccessor.m; sourceTree = "<group>"; };
 		040BA72B129089F7007300E4 /* DBUserAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBUserAccessor.h; sourceTree = "<group>"; };
@@ -108,6 +117,21 @@
 		040BA75D12908AE8007300E4 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		0457E0A512AAB9BE00D046F9 /* PhotoDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoDetailsViewController.h; sourceTree = "<group>"; };
 		0457E0A612AAB9BE00D046F9 /* PhotoDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoDetailsViewController.m; sourceTree = "<group>"; };
+		04583D9B12E1E78E00CD758A /* betterflickr.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = betterflickr.sql; path = SQLite/betterflickr.sql; sourceTree = "<group>"; };
+		04583DA212E1EE0400CD758A /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		04583DCC12E1F17F00CD758A /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TFHpple.h; path = libs/hpple/TFHpple.h; sourceTree = SOURCE_ROOT; };
+		04583DCD12E1F17F00CD758A /* TFHpple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TFHpple.m; path = libs/hpple/TFHpple.m; sourceTree = SOURCE_ROOT; };
+		04583DCE12E1F17F00CD758A /* TFHppleElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TFHppleElement.h; path = libs/hpple/TFHppleElement.h; sourceTree = SOURCE_ROOT; };
+		04583DCF12E1F17F00CD758A /* TFHppleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TFHppleElement.m; path = libs/hpple/TFHppleElement.m; sourceTree = SOURCE_ROOT; };
+		04583DD012E1F17F00CD758A /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPathQuery.h; path = libs/hpple/XPathQuery.h; sourceTree = SOURCE_ROOT; };
+		04583DD112E1F17F00CD758A /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPathQuery.m; path = libs/hpple/XPathQuery.m; sourceTree = SOURCE_ROOT; };
+		0458417712E316C800CD758A /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		0458417812E316C800CD758A /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		0458418112E316EE00CD758A /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SettingsViewController.xib; path = Resources/SettingsViewController.xib; sourceTree = SOURCE_ROOT; };
+		0458424312E336BE00CD758A /* SettingsList.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SettingsList.png; path = images/settings/SettingsList.png; sourceTree = SOURCE_ROOT; };
+		045842AF12E33D7B00CD758A /* SettingsGrid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SettingsGrid.png; path = images/settings/SettingsGrid.png; sourceTree = SOURCE_ROOT; };
+		045842B012E33D7B00CD758A /* SettingsGridSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SettingsGridSelected.png; path = images/settings/SettingsGridSelected.png; sourceTree = SOURCE_ROOT; };
+		045842B112E33D7B00CD758A /* SettingsListSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SettingsListSelected.png; path = images/settings/SettingsListSelected.png; sourceTree = SOURCE_ROOT; };
 		0472E6B112C77EFB007695D5 /* DetailInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DetailInfoCell.xib; path = Resources/DetailInfoCell.xib; sourceTree = "<group>"; };
 		04DDEFEC12BCFA9B004D039D /* FirstView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FirstView.xib; path = Resources/FirstView.xib; sourceTree = "<group>"; };
 		04DDEFED12BCFA9B004D039D /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LoginViewController.xib; path = Resources/LoginViewController.xib; sourceTree = "<group>"; };
@@ -152,6 +176,7 @@
 				288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */,
 				040BA75C12908AC4007300E4 /* CFNetwork.framework in Frameworks */,
 				040BA75E12908AE8007300E4 /* libsqlite3.dylib in Frameworks */,
+				04583DA312E1EE0400CD758A /* libxml2.2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,6 +212,8 @@
 				040BA74712908A1D007300E4 /* PhotostreamViewController.m */,
 				0457E0A512AAB9BE00D046F9 /* PhotoDetailsViewController.h */,
 				0457E0A612AAB9BE00D046F9 /* PhotoDetailsViewController.m */,
+				0458417712E316C800CD758A /* SettingsViewController.h */,
+				0458417812E316C800CD758A /* SettingsViewController.m */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -239,10 +266,44 @@
 		040BA72012908983007300E4 /* sqlite */ = {
 			isa = PBXGroup;
 			children = (
-				040BA72512908993007300E4 /* betterflickr.sql */,
+				04583D9B12E1E78E00CD758A /* betterflickr.sql */,
 			);
 			name = sqlite;
 			sourceTree = "<group>";
+		};
+		04583DCA12E1F17F00CD758A /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				04583DCB12E1F17F00CD758A /* hpple */,
+			);
+			path = libs;
+			sourceTree = SOURCE_ROOT;
+		};
+		04583DCB12E1F17F00CD758A /* hpple */ = {
+			isa = PBXGroup;
+			children = (
+				04583DCC12E1F17F00CD758A /* TFHpple.h */,
+				04583DCD12E1F17F00CD758A /* TFHpple.m */,
+				04583DCE12E1F17F00CD758A /* TFHppleElement.h */,
+				04583DCF12E1F17F00CD758A /* TFHppleElement.m */,
+				04583DD012E1F17F00CD758A /* XPathQuery.h */,
+				04583DD112E1F17F00CD758A /* XPathQuery.m */,
+			);
+			name = hpple;
+			path = libs/hpple;
+			sourceTree = SOURCE_ROOT;
+		};
+		0458424212E336BE00CD758A /* settings */ = {
+			isa = PBXGroup;
+			children = (
+				045842AF12E33D7B00CD758A /* SettingsGrid.png */,
+				045842B012E33D7B00CD758A /* SettingsGridSelected.png */,
+				045842B112E33D7B00CD758A /* SettingsListSelected.png */,
+				0458424312E336BE00CD758A /* SettingsList.png */,
+			);
+			name = settings;
+			path = images/settings;
+			sourceTree = SOURCE_ROOT;
 		};
 		04DDF1A512BE33B8004D039D /* 16x16 */ = {
 			isa = PBXGroup;
@@ -259,6 +320,7 @@
 		04E3192712A130FB00F6F837 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				0458424212E336BE00CD758A /* settings */,
 				04DDF1A512BE33B8004D039D /* 16x16 */,
 			);
 			name = Images;
@@ -267,6 +329,7 @@
 		04E3192812A1310C00F6F837 /* NIB Files */ = {
 			isa = PBXGroup;
 			children = (
+				0458418112E316EE00CD758A /* SettingsViewController.xib */,
 				0472E6B112C77EFB007695D5 /* DetailInfoCell.xib */,
 				04DDF5E612BEB832004D039D /* DetailCommentView.xib */,
 				04DDF2C712BE5151004D039D /* PhotoDetailsViewController.xib */,
@@ -283,6 +346,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				04583DCA12E1F17F00CD758A /* libs */,
 				040BA71F12908962007300E4 /* database */,
 				040BA71E12908948007300E4 /* utils */,
 				040BA71D12908942007300E4 /* bom */,
@@ -346,6 +410,7 @@
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765070DF74369002DB57D /* CoreGraphics.framework */,
+				04583DA212E1EE0400CD758A /* libxml2.2.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -416,7 +481,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				040BA72712908993007300E4 /* betterflickr.sql in Resources */,
 				04E3192312A130F600F6F837 /* comments.png in Resources */,
 				04E3192412A130F600F6F837 /* favourites.png in Resources */,
 				04E3192512A130F600F6F837 /* views.png in Resources */,
@@ -431,6 +495,12 @@
 				04DDF5E712BEB832004D039D /* DetailCommentView.xib in Resources */,
 				04DDF6AA12BFF876004D039D /* CommentViewCell.xib in Resources */,
 				0472E6B212C77EFB007695D5 /* DetailInfoCell.xib in Resources */,
+				04583D9C12E1E78E00CD758A /* betterflickr.sql in Resources */,
+				0458418212E316EE00CD758A /* SettingsViewController.xib in Resources */,
+				0458424412E336BE00CD758A /* SettingsList.png in Resources */,
+				045842B212E33D7B00CD758A /* SettingsGrid.png in Resources */,
+				045842B312E33D7B00CD758A /* SettingsGridSelected.png in Resources */,
+				045842B412E33D7B00CD758A /* SettingsListSelected.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,6 +531,10 @@
 				04DDF2CB12BE5169004D039D /* DBComment.m in Sources */,
 				04DDF2E412BE5AB7004D039D /* DBCommentAccessor.m in Sources */,
 				04DDFA2812C76569004D039D /* PhotoDetailCells.m in Sources */,
+				04583DD212E1F17F00CD758A /* TFHpple.m in Sources */,
+				04583DD312E1F17F00CD758A /* TFHppleElement.m in Sources */,
+				04583DD412E1F17F00CD758A /* XPathQuery.m in Sources */,
+				0458417A12E316C800CD758A /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,6 +560,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = BetterFlickr_Prefix.pch;
 				HEADER_SEARCH_PATHS = (
+					"$(SDKROOT)/usr/include/libxml2/**",
 					"\"$(SRCROOT)/../objectiveflickr/LFWebAPIKit\"",
 					"\"$(SRCROOT)/../objectiveflickr/Source\"",
 				);
@@ -503,6 +578,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = BetterFlickr_Prefix.pch;
 				HEADER_SEARCH_PATHS = (
+					"$(SDKROOT)/usr/include/libxml2/**",
 					"\"$(SRCROOT)/../objectiveflickr/LFWebAPIKit\"",
 					"\"$(SRCROOT)/../objectiveflickr/Source\"",
 				);
@@ -520,6 +596,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				PREBINDING = NO;
 				SDKROOT = iphoneos4.0;
 			};
@@ -533,6 +610,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
 				SDKROOT = iphoneos4.0;

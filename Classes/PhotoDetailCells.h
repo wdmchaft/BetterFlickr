@@ -60,5 +60,6 @@
  *	@param		iPhoto		The BOM object from which the view will be built
  */
 - (void) layoutFromPhoto:(DBPhoto*)iPhoto;
+
 	
 @end

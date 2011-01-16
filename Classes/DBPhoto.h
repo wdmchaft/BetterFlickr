@@ -44,6 +44,9 @@
 #define kPhotoTakenColumnName		@"taken"
 #define kPhotoPostedColumnName		@"posted"
 #define kPhotoUpdatedColumnName		@"updated"
+#define kPhotoTakenDictName			@"datetaken"
+#define kPhotoPostedDictName		@"dateupload"
+#define kPhotoUpdatedDictName		@"lastupdate"
 
 // Description
 #define kPhotoTitleColumnName		@"title"
@@ -64,6 +67,7 @@
 #define kPhotoPages					@"pages"
 #define kPhotoFavoritesTotal		@"total"
 #define kPhotoFlickrPhotoSource		@"http://static.flickr.com/"
+
 
 @interface DBPhoto : DBObject 
 {

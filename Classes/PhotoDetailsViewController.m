@@ -66,6 +66,15 @@ REQUIRE(_photo != nil)
 	// Comments
 	_comments = [[[DBCommentAccessor instance] commentsForPhoto:_photo] retain];
 	
+	if ([_comments count] < _photo.comments)
+	{
+		BetterFlickrAppDelegate*aDelegate = (BetterFlickrAppDelegate*)[[UIApplication sharedApplication] delegate];
+
+		[[aDelegate flickrDelegate] createRequestFromAPI:kFlickrPhotosCommentsList
+											   arguments:[NSDictionary dictionaryWithObjectsAndKeys:
+														  [_photo pid], @"photo_id",  nil]];
+	}
+	
 	// TableView Setup
 	_commentsView.backgroundColor	= [UIColor blackColor];
 	_commentsView.separatorColor	= [UIColor darkGrayColor];
@@ -116,18 +125,35 @@ REQUIRE(_photo != nil)
 {
 REQUIRE (iData != nil)
 	
-	UIImage* aImage = [[UIImage alloc] initWithData:iData];
-	
-	[_preview setBackgroundImage:aImage forState:UIControlStateNormal];
+	[_commentsView reloadData];
 	
 	// Stop Activity
 	[_activityPreview stopAnimating];
 	
-	// Update layout from image
-	//[self layoutViewsFromImage:aImage];
+}
+
+/*! @method		gotUpdatedInformation:
+ *	@abstract	Callback for when information such as comments has been sucessfully downloaded
+ *	@param		iObjID		The BOM object from which the information has been retreived
+ */
+- (void)gotUpdatedInformation:(id)iObjID
+{
 	
-	// Release image object since it's retained in the preview button
-	[aImage release];
+	if ([iObjID class] == [DBPhoto class])
+	{
+		SAFE_RELEASE(_comments);
+		SAFE_RELEASE(_photo);
+		
+		// Get updated photo
+		_photo = (DBPhoto*)[iObjID retain];
+		
+		// Get updated comments
+		_comments = [[[DBCommentAccessor instance] commentsForPhoto:_photo] retain];
+		
+	}
+	
+	// Reload TableView with udpated information
+	[_commentsView reloadData];
 }
 
 #pragma mark -
@@ -184,7 +210,7 @@ REQUIRE (_photo != nil)
 		{
 REQUIRE (indexPath.row < [_comments count] + kPhotoCellsNoComments)
 			DBComment* aComment = (DBComment*)[_comments objectAtIndex:(indexPath.row - kPhotoCellsNoComments)];
-			aContent = aComment.content;
+			aContent = [aComment contentWithoutHTML];
 		}
 		
 		// Calculate size the string would take taking only the width into account
@@ -279,6 +305,14 @@ REQUIRE (aComment != nil)
 	}
 		 
 	return aCell;
+}
+
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	if (indexPath.row <= 1)
+		return nil;
+	return indexPath;
 }
 
 - (void)tableView:(UITableView *)iTableView didSelectRowAtIndexPath:(NSIndexPath *)iIndexPath

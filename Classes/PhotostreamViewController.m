@@ -8,6 +8,7 @@
 
 #import "PhotostreamViewController.h"
 #import "PhotoDetailsViewController.h"
+#import "SettingsViewController.h"
 
 #import "DBPhoto.h"
 #import "DBUser.h"
@@ -16,6 +17,8 @@
 #import "DBUserAccessor.h"
 
 #import "PhotoViewCell.h"
+
+#import "Locales.h"
 
 
 @implementation PhotostreamViewController
@@ -49,6 +52,9 @@ REQUIRE (_tableViewPhotos != nil)
 	
 	// Update TableView Style
 	[self layoutTableView:_tableViewPhotos];	
+	
+	// Layout top bar
+	[self layoutTopBar];
 
 	
 	// Retreive Information from current context
@@ -57,6 +63,9 @@ REQUIRE (_tableViewPhotos != nil)
 	
 	// Black style to match application style
 	self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
+	
+	// Settings are hidden by default;
+	_settingsController = nil;
 }
 
 
@@ -87,6 +96,8 @@ REQUIRE (_tableViewPhotos != nil)
 
 - (void)dealloc
 {	
+	SAFE_RELEASE(_settingsController);
+	
 	[_user release];
 	[_photos release];
 	
@@ -107,6 +118,67 @@ REQUIRE (_tableViewPhotos != nil)
 	iTableView.rowHeight		= 90.0;	
 	iTableView.backgroundColor	= [UIColor blackColor];
 	iTableView.separatorColor	= [UIColor darkGrayColor];	
+}
+
+/*!
+ * @method		layoutTopBar
+ * @abstract	Creates all buttons required by the photostream controller and attach
+ *				them to the navigation item.
+ */
+- (void) layoutTopBar
+{
+	// Update back button
+	NSString* aSettingsTitle = @"";
+	if (!_settingsController)
+		aSettingsTitle = NSLocalizedString(kLocaleSettings, nil);
+	else 
+		aSettingsTitle = NSLocalizedString(kLocaleSettingsDone, nil);
+
+	UIBarButtonItem* button = [[UIBarButtonItem alloc] initWithTitle:aSettingsTitle 
+															   style:UIBarButtonItemStyleBordered 
+															  target:self
+															  action:@selector(settingsClicked:)];
+	
+	self.navigationItem.rightBarButtonItem = button;
+	
+	// Release button
+	[button release];
+	
+}
+
+/*!
+ * @method		settingsClicked:
+ * @abstract	Called when the user clicked a specific button
+ * @param		sender	The object initializing the call
+ */
+- (void) settingsClicked:(id)sender
+{
+	if (!_settingsController)
+	{
+		// Create settings view controller
+		_settingsController = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" 
+																	   bundle:nil];
+		
+		// Add view controller to current view
+		[self.view addSubview:_settingsController.view];
+	}
+	else 
+	{
+		[_settingsController.view removeFromSuperview];
+		SAFE_RELEASE(_settingsController);
+	}
+	
+	[self layoutTopBar];
+	
+	[UIView setAnimationDelegate:self];
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationDuration:0.6];
+	
+	 
+	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.view cache:YES];
+	
+	// Commit Animations
+	[UIView commitAnimations];
 }
 
 #pragma mark -
@@ -130,6 +202,23 @@ REQUIRE(iData != nil)
 	
 	[aImage release];
 	
+}
+
+/*! @method		updateIsNeeded:data
+ *	@abstract	Callback for when an update of the photos stream view is needed
+ *	@param		iObjID		The BOM object from which the download had been started
+ *	@param		iData		The Data holding the image
+ */
+- (void)updateIsNeeded:(id)iObjID data:(NSData*)iData
+{
+	// Done wil the search, unload photos
+	SAFE_RELEASE(_photos);
+	
+	// And load back with the current user photos
+	_photos = [[[DBPhotoAccessor instance] photosFromUser:_user] retain];
+	
+	// Reload data
+	[_tableViewPhotos reloadData];
 }
 
 #pragma mark -
@@ -168,8 +257,6 @@ REQUIRE([c.view class] == [PhotoViewCell class])
 		// Caution: it has to be set via IB by connecting the ViewController.view 
 		// to the PhotoViewCell
 		cell = (PhotoViewCell	*)c.view;
-		
-		
 		
 		// the cell will be retained so we can safely release the controller
 		[c release];
